@@ -1,0 +1,21 @@
+{
+  "name": "e18",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Claudio Agosti @_vecna, tracking-exposed team",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "bootstrap": "^3.3.7",
+    "csv-string": "^3.1.2",
+    "d3": "^4.12.2",
+    "d3-path": "^1.0.5",
+    "debug": "^3.1.0",
+    "lodash": "^4.17.4",
+    "moment": "^2.20.1",
+    "pug": "^2.0.0-rc.4"
+  }
+}
