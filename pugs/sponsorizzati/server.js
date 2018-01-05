@@ -5,21 +5,18 @@ var nconf = require('nconf').env();
 
 var campaignName = nconf.get('campaign');
 
-var pugCompiler = function(filePath) {
-    return pug.compileFile(
-        __dirname + filePath, {
-            pretty: true,
-            debug: false
-        }
-    );
-};
-
 function sponsorizzati(req) {
 
     var pageName = _.get(req.params, 'page');
     debug("page request for: %s", pageName);
 
-    return { 'text': pugCompiler('./sponsorizzati.pug')() };
+    var fullp = __dirname + '/' + 'sponsorizzati.pug';
+    return { 'text':
+        pug.compileFile(fullp, {
+            pretty: true,
+            debug: false
+        })()
+    };
 };
 
 module.exports = sponsorizzati;

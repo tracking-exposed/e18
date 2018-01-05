@@ -5,21 +5,19 @@ var nconf = require('nconf').env();
 
 var campaignName = nconf.get('campaign');
 
-var pugCompiler = function(filePath) {
-    return pug.compileFile(
-        __dirname + filePath, {
-            pretty: true,
-            debug: false
-        }
-    );
-};
 
 function distorsioni(req) {
 
     var pageName = _.get(req.params, 'page');
     debug("page request for: %s", pageName);
 
-    return { 'text': pugCompiler('./distorsioni.pug')() };
+    var fullp = __dirname + '/' + 'distorsioni.pug';
+    return { 'text': 
+        pug.compileFile(fullp, {
+            pretty: true,
+            debug: false
+        })()
+    };
 };
 
 module.exports = distorsioni;
