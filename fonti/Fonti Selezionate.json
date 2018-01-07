@@ -1,12 +1,5 @@
 [
   {
-    "nome": "NomePagina",
-    "orientamento": "Orientamento",
-    "selezionato": true,
-    "tipo": "Tipologia",
-    "pagina": "Pagina"
-  },
-  {
     "nome": "Forza Italia News",
     "orientamento": "Destra",
     "selezionato": false,
