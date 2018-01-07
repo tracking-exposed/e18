@@ -1,0 +1,60 @@
+[{
+    "orientamento":"Destra",
+    "bot": "Andrea",
+    "riferimenti": [
+        "https://www.facebook.com/NoiconSalviniUfficiale/",
+        "https://www.facebook.com/ilpopulista.it/",
+        "https://www.facebook.com/ilGiornale/",
+        "https://www.facebook.com/legasalvinipremier/",
+        "https://www.facebook.com/rivogliobologna/",
+        "https://www.facebook.com/giorgiameloni.paginaufficiale/"
+    ]
+},{
+    "orientamento":"Fascistoidi",
+    "bot": "Michele",
+    "riferimenti": [
+        "https://www.facebook.com/Fascisti-uniti-per-Litalia-411675765615435/",
+        "https://www.facebook.com/OrdineFuturo/",
+        "https://www.facebook.com/ilprimatonatsionale/",
+        "https://www.facebook.com/ForzaNuovaPaginaUfficiale/",
+        "https://www.facebook.com/casapounditalia/",
+        "https://www.facebook.com/RobertoFiorePaginaUfficiale/"
+    ]
+},{
+    "orientamento":"Sinistra",
+    "bot": "Andrea",
+    "riferimenti": [
+        "https://www.facebook.com/Articolo1Modempro/",
+        "https://www.facebook.com/sinistraitalianaSI/",
+        "https://www.facebook.com/ilmanifesto/",
+        "https://www.facebook.com/Possibile.it/",
+        "https://www.facebook.com/giuseppecivati/",
+        "https://www.facebook.com/Laura-Boldrini-325228170920721/"
+    ]
+},{
+    "orientamento":"Centro Sinistra",
+    "bot": "Andrea",
+    "riferimenti": [
+        "https://www.facebook.com/Adessotiinformo/",
+        "https://www.facebook.com/matteorenzinews/",
+        "https://www.facebook.com/Repubblica/",
+        "https://www.facebook.com/democratica/",
+        "https://www.facebook.com/matteorenziufficiale/",
+        "https://www.facebook.com/partitodemocratico.it/"
+    ]
+},{
+    "orientamento":"M5S",
+    "bot": "Andrea",
+    "riferimenti": [
+        "https://www.facebook.com/news.m5s/",
+        "https://www.facebook.com/WIlM5s/",
+        "https://www.facebook.com/ilFattoQuotidiano/",
+        "https://www.facebook.com/movimentocinquestelle/",
+        "https://www.facebook.com/LuigiDiMaio/",
+        "https://www.facebook.com/beppegrillo.it/"
+    ]
+},{
+    "orientamento":"Nessuno",
+    "bot": "Oliviero",
+    "riferimenti": [ ]
+}]
