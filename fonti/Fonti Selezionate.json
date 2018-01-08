@@ -11,14 +11,14 @@
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Partito",
-    "pagina": "https://www.facebook.com/ForzaItaliaUfficiale/"
+    "pagina": "https://www.facebook.com/ForzaItaliaUfficiale"
   },
   {
     "nome": "Alternativa Popolare",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Partito",
-    "pagina": "https://www.facebook.com/alternativapopolare.it/"
+    "pagina": "https://www.facebook.com/alternativapopolare.it"
   },
   {
     "nome": "Scelta Civica",
@@ -32,112 +32,112 @@
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/SilvioBerlusconi/"
+    "pagina": "https://www.facebook.com/SilvioBerlusconi"
   },
   {
     "nome": "Michela Vittoria Brambilla",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/michelavittoriabrambilla/"
+    "pagina": "https://www.facebook.com/michelavittoriabrambilla"
   },
   {
     "nome": "Giovanni Toti",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/giovatoti/"
+    "pagina": "https://www.facebook.com/giovatoti"
   },
   {
     "nome": "Renato Brunetta",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/renato.brunetta/"
+    "pagina": "https://www.facebook.com/renato.brunetta"
   },
   {
     "nome": "Mara Carfagna",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/CarfagnaMara/"
+    "pagina": "https://www.facebook.com/CarfagnaMara"
   },
   {
     "nome": "Angelino Alfano",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/angelinoalfano.it/"
+    "pagina": "https://www.facebook.com/angelinoalfano.it"
   },
   {
     "nome": "Maurizio Lupi",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/mauriziolupi.it/"
+    "pagina": "https://www.facebook.com/mauriziolupi.it"
   },
   {
     "nome": "Beatrice Lorenzin",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/BeatriceLorenzin/"
+    "pagina": "https://www.facebook.com/BeatriceLorenzin"
   },
   {
     "nome": "Fabrizio Cicchitto",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/fcicchitto/"
+    "pagina": "https://www.facebook.com/fcicchitto"
   },
   {
     "nome": "Enrico Zanetti",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/enricozanettiofficialpage/"
+    "pagina": "https://www.facebook.com/enricozanettiofficialpage"
   },
   {
     "nome": "Governo Berlusconi (oramai abbandonata)",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Comunità",
-    "pagina": "https://www.facebook.com/governoberlusconi/"
+    "pagina": "https://www.facebook.com/governoberlusconi"
   },
   {
     "nome": "Gioventù Nazionale",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Comunità",
-    "pagina": "https://www.facebook.com/Giovent%C3%B9-Nazionale-728807187170476/"
+    "pagina": "https://www.facebook.com/Giovent%C3%B9-Nazionale-728807187170476"
   },
   {
     "nome": "Giorgia Meloni Premier",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Comunità",
-    "pagina": "https://www.facebook.com/giorgiamelonipremier/"
+    "pagina": "https://www.facebook.com/giorgiamelonipremier"
   },
   {
     "nome": "Salvini Premier (vecchio)",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Partito",
-    "pagina": "https://www.facebook.com/SalviniPremier.it/"
+    "pagina": "https://www.facebook.com/SalviniPremier.it"
   },
   {
     "nome": "Noi con Salvini",
     "orientamento": "Destra",
     "selezionato": true,
     "tipo": "Comunità",
-    "pagina": "https://www.facebook.com/NoiconSalviniUfficiale/"
+    "pagina": "https://www.facebook.com/NoiconSalviniUfficiale"
   },
   {
     "nome": "Basta Euro",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Comunità",
-    "pagina": "https://www.facebook.com/BastaEuroLegaNord/"
+    "pagina": "https://www.facebook.com/BastaEuroLegaNord"
   },
   {
     "nome": "Movimento Giovani Padani",
@@ -151,98 +151,98 @@
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Comunità",
-    "pagina": "https://www.facebook.com/nouenoeuro/"
+    "pagina": "https://www.facebook.com/nouenoeuro"
   },
   {
     "nome": "Il Populista (seguito da Salvini)",
     "orientamento": "Destra",
     "selezionato": true,
     "tipo": "Comunità",
-    "pagina": "https://www.facebook.com/ilpopulista.it/"
+    "pagina": "https://www.facebook.com/ilpopulista.it"
   },
   {
     "nome": "La Padania",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Media",
-    "pagina": "https://www.facebook.com/QuotidianoLaPadania/"
+    "pagina": "https://www.facebook.com/QuotidianoLaPadania"
   },
   {
     "nome": "Libero",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Media",
-    "pagina": "https://www.facebook.com/liberonews/"
+    "pagina": "https://www.facebook.com/liberonews"
   },
   {
     "nome": "Il Giornale",
     "orientamento": "Destra",
     "selezionato": true,
     "tipo": "Media",
-    "pagina": "https://www.facebook.com/ilGiornale/"
+    "pagina": "https://www.facebook.com/ilGiornale"
   },
   {
     "nome": "Il Foglio",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Media",
-    "pagina": "https://www.facebook.com/ilfoglio/"
+    "pagina": "https://www.facebook.com/ilfoglio"
   },
   {
     "nome": "Il Resto del Carlino",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Media",
-    "pagina": "https://www.facebook.com/IlRestoDelCarlino/"
+    "pagina": "https://www.facebook.com/IlRestoDelCarlino"
   },
   {
     "nome": "Il Messaggero",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Media",
-    "pagina": "https://www.facebook.com/Messaggero.it/"
+    "pagina": "https://www.facebook.com/Messaggero.it"
   },
   {
     "nome": "Fratelli d’Italia",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Partito",
-    "pagina": "https://www.facebook.com/FdI.paginaufficiale/"
+    "pagina": "https://www.facebook.com/FdI.paginaufficiale"
   },
   {
     "nome": "Lega Nord Padania",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Partito",
-    "pagina": "https://www.facebook.com/LegaNordUfficiale/"
+    "pagina": "https://www.facebook.com/LegaNordUfficiale"
   },
   {
     "nome": "Giorgia Meloni",
     "orientamento": "Destra",
     "selezionato": true,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/giorgiameloni.paginaufficiale/"
+    "pagina": "https://www.facebook.com/giorgiameloni.paginaufficiale"
   },
   {
     "nome": "Matteo Salvini",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/salviniofficial/"
+    "pagina": "https://www.facebook.com/salviniofficial"
   },
   {
     "nome": "Lucia Borgonzoni",
     "orientamento": "Destra",
     "selezionato": true,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/rivogliobologna/"
+    "pagina": "https://www.facebook.com/rivogliobologna"
   },
   {
     "nome": "Luca Zaia",
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/zaiaufficiale/"
+    "pagina": "https://www.facebook.com/zaiaufficiale"
   },
   {
     "nome": "RFI24",
@@ -256,363 +256,363 @@
     "orientamento": "Destra",
     "selezionato": false,
     "tipo": "Programma TV",
-    "pagina": "https://www.facebook.com/RaiPortaaPorta/"
+    "pagina": "https://www.facebook.com/RaiPortaaPorta"
   },
   {
     "nome": "Fascisti Uniti per l'Italia",
     "orientamento": "Fascistoidi",
     "selezionato": true,
     "tipo": "Comunità",
-    "pagina": "https://www.facebook.com/Fascisti-uniti-per-Litalia-411675765615435/"
+    "pagina": "https://www.facebook.com/Fascisti-uniti-per-Litalia-411675765615435"
   },
   {
     "nome": "Ordine Futuro",
     "orientamento": "Fascistoidi",
     "selezionato": true,
     "tipo": "Comunità",
-    "pagina": "https://www.facebook.com/OrdineFuturo/"
+    "pagina": "https://www.facebook.com/OrdineFuturo"
   },
   {
     "nome": "Il primato nazionale (Casa Pound)",
     "orientamento": "Fascistoidi",
     "selezionato": true,
     "tipo": "Media",
-    "pagina": "https://www.facebook.com/ilprimatonatsionale/"
+    "pagina": "https://www.facebook.com/ilprimatonatsionale"
   },
   {
     "nome": "Forza Nuova",
     "orientamento": "Fascistoidi",
     "selezionato": true,
     "tipo": "Partito",
-    "pagina": "https://www.facebook.com/ForzaNuovaPaginaUfficiale/"
+    "pagina": "https://www.facebook.com/ForzaNuovaPaginaUfficiale"
   },
   {
     "nome": "Casa Pound",
     "orientamento": "Fascistoidi",
     "selezionato": true,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/casapounditalia/"
+    "pagina": "https://www.facebook.com/casapounditalia"
   },
   {
     "nome": "Roberto Fiore",
     "orientamento": "Fascistoidi",
     "selezionato": true,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/RobertoFiorePaginaUfficiale/"
+    "pagina": "https://www.facebook.com/RobertoFiorePaginaUfficiale"
   },
   {
     "nome": "Noi Votiamo 5 Stelle",
     "orientamento": "m5s",
     "selezionato": false,
     "tipo": "Comunità",
-    "pagina": "https://www.facebook.com/noivotiamoM5S/"
+    "pagina": "https://www.facebook.com/noivotiamoM5S"
   },
   {
     "nome": "M5S News",
     "orientamento": "m5s",
     "selezionato": true,
     "tipo": "Comunità",
-    "pagina": "https://www.facebook.com/news.m5s/"
+    "pagina": "https://www.facebook.com/news.m5s"
   },
   {
     "nome": "Tutti con il M5S",
     "orientamento": "m5s",
     "selezionato": false,
     "tipo": "Comunità",
-    "pagina": "https://www.facebook.com/TuttiConIlM5S/"
+    "pagina": "https://www.facebook.com/TuttiConIlM5S"
   },
   {
     "nome": "Matteo Renzie (M5S)",
     "orientamento": "m5s",
     "selezionato": false,
     "tipo": "Comunità",
-    "pagina": "https://www.facebook.com/MatteoRenzieOfficial/"
+    "pagina": "https://www.facebook.com/MatteoRenzieOfficial"
   },
   {
     "nome": "La Cosa (M5S)",
     "orientamento": "m5s",
     "selezionato": false,
     "tipo": "Comunità",
-    "pagina": "https://www.facebook.com/lacosachannel/"
+    "pagina": "https://www.facebook.com/lacosachannel"
   },
   {
     "nome": "Tze Tze (M5S)",
     "orientamento": "m5s",
     "selezionato": false,
     "tipo": "Comunità",
-    "pagina": "https://www.facebook.com/tzetze.politica/"
+    "pagina": "https://www.facebook.com/tzetze.politica"
   },
   {
     "nome": "Noi Grillini (M5S)",
     "orientamento": "m5s",
     "selezionato": false,
     "tipo": "Comunità",
-    "pagina": "https://www.facebook.com/italianonvorrei/"
+    "pagina": "https://www.facebook.com/italianonvorrei"
   },
   {
     "nome": "W il M5S",
     "orientamento": "m5s",
     "selezionato": true,
     "tipo": "Comunità",
-    "pagina": "https://www.facebook.com/WIlM5s/"
+    "pagina": "https://www.facebook.com/WIlM5s"
   },
   {
     "nome": "Il Fatto Quotidiano",
     "orientamento": "m5s",
     "selezionato": false,
     "tipo": "Media",
-    "pagina": "https://www.facebook.com/ilFattoQuotidiano/"
+    "pagina": "https://www.facebook.com/ilFattoQuotidiano"
   },
   {
     "nome": "M5S",
     "orientamento": "m5s",
     "selezionato": true,
     "tipo": "Partito",
-    "pagina": "https://www.facebook.com/movimentocinquestelle/"
+    "pagina": "https://www.facebook.com/movimentocinquestelle"
   },
   {
     "nome": "Beppe Grillo",
     "orientamento": "m5s",
     "selezionato": true,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/beppegrillo.it/"
+    "pagina": "https://www.facebook.com/beppegrillo.it"
   },
   {
     "nome": "Luigi Di Maio",
     "orientamento": "m5s",
     "selezionato": true,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/LuigiDiMaio/"
+    "pagina": "https://www.facebook.com/LuigiDiMaio"
   },
   {
     "nome": "Alessandro Di Battista",
     "orientamento": "m5s",
     "selezionato": false,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/dibattista.alessandro/"
+    "pagina": "https://www.facebook.com/dibattista.alessandro"
   },
   {
     "nome": "Virginia Raggi",
     "orientamento": "m5s",
     "selezionato": false,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/virginia.raggi.m5sroma/"
+    "pagina": "https://www.facebook.com/virginia.raggi.m5sroma"
   },
   {
     "nome": "Chiara Appendino",
     "orientamento": "m5s",
     "selezionato": false,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/chiaraappendinosindaca/"
+    "pagina": "https://www.facebook.com/chiaraappendinosindaca"
   },
   {
     "nome": "Vito Crimi",
     "orientamento": "m5s",
     "selezionato": false,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/vitoclaudiocrimi/"
+    "pagina": "https://www.facebook.com/vitoclaudiocrimi"
   },
   {
     "nome": "Matteo Renzi News",
     "orientamento": "Centro Sinistra",
     "selezionato": true,
     "tipo": "Partito",
-    "pagina": "https://www.facebook.com/matteorenzinews/"
+    "pagina": "https://www.facebook.com/matteorenzinews"
   },
   {
     "nome": "Democratica",
     "orientamento": "Centro Sinistra",
     "selezionato": true,
     "tipo": "Partito",
-    "pagina": "https://www.facebook.com/democratica/"
+    "pagina": "https://www.facebook.com/democratica"
   },
   {
     "nome": "Leopolda",
     "orientamento": "Centro Sinistra",
     "selezionato": false,
     "tipo": "Comunità",
-    "pagina": "https://www.facebook.com/Fondazioneopen.leopolda/"
+    "pagina": "https://www.facebook.com/Fondazioneopen.leopolda"
   },
   {
     "nome": "Adesso Ti informo (PD)",
     "orientamento": "Centro Sinistra",
     "selezionato": true,
     "tipo": "Comunità",
-    "pagina": "https://www.facebook.com/Adessotiinformo/"
+    "pagina": "https://www.facebook.com/Adessotiinformo"
   },
   {
     "nome": "In Cammino (PD ma sembra abbandonata)",
     "orientamento": "Centro Sinistra",
     "selezionato": false,
     "tipo": "Comunità",
-    "pagina": "https://www.facebook.com/incammino2017/"
+    "pagina": "https://www.facebook.com/incammino2017"
   },
   {
     "nome": "W il PD",
     "orientamento": "Centro Sinistra",
     "selezionato": false,
     "tipo": "Comunità",
-    "pagina": "https://www.facebook.com/WilPartitoDemocratico/"
+    "pagina": "https://www.facebook.com/WilPartitoDemocratico"
   },
   {
     "nome": "La Repubblica",
     "orientamento": "Centro Sinistra",
     "selezionato": false,
     "tipo": "Media",
-    "pagina": "https://www.facebook.com/Repubblica/"
+    "pagina": "https://www.facebook.com/Repubblica"
   },
   {
     "nome": "Il Manifesto",
     "orientamento": "Sinistra",
     "selezionato": true,
     "tipo": "Media",
-    "pagina": "https://www.facebook.com/ilmanifesto/"
+    "pagina": "https://www.facebook.com/ilmanifesto"
   },
   {
     "nome": "Partito Democratico",
     "orientamento": "Centro Sinistra",
     "selezionato": true,
     "tipo": "Partito",
-    "pagina": "https://www.facebook.com/partitodemocratico.it/"
+    "pagina": "https://www.facebook.com/partitodemocratico.it"
   },
   {
     "nome": "Possibile",
     "orientamento": "Sinistra",
     "selezionato": true,
     "tipo": "Partito",
-    "pagina": "https://www.facebook.com/Possibile.it/"
+    "pagina": "https://www.facebook.com/Possibile.it"
   },
   {
     "nome": "Sinistra Italiana",
     "orientamento": "Sinistra",
     "selezionato": true,
     "tipo": "Partito",
-    "pagina": "https://www.facebook.com/sinistraitalianaSI/"
+    "pagina": "https://www.facebook.com/sinistraitalianaSI"
   },
   {
     "nome": "Liberi e Uguali",
     "orientamento": "Sinistra",
     "selezionato": false,
     "tipo": "Partito",
-    "pagina": "https://www.facebook.com/liberieuguali2018/"
+    "pagina": "https://www.facebook.com/liberieuguali2018"
   },
   {
     "nome": "Articolo 1 MDP",
     "orientamento": "Sinistra",
     "selezionato": false,
     "tipo": "Partito",
-    "pagina": "https://www.facebook.com/Articolo1Modempro/"
+    "pagina": "https://www.facebook.com/Articolo1Modempro"
   },
   {
     "nome": "Matteo Renzi",
     "orientamento": "Centro Sinistra",
     "selezionato": true,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/matteorenziufficiale/"
+    "pagina": "https://www.facebook.com/matteorenziufficiale"
   },
   {
     "nome": "Maria Elena Boschi",
     "orientamento": "Centro Sinistra",
     "selezionato": false,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/boschimariaelena/"
+    "pagina": "https://www.facebook.com/boschimariaelena"
   },
   {
     "nome": "Ivan Scalfarotto",
     "orientamento": "Sinistra",
     "selezionato": false,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/scalfarotto/"
+    "pagina": "https://www.facebook.com/scalfarotto"
   },
   {
     "nome": "Anna Finocchiaro",
     "orientamento": "Sinistra",
     "selezionato": false,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/FinocchiaroAnna/"
+    "pagina": "https://www.facebook.com/FinocchiaroAnna"
   },
   {
     "nome": "Graziano Delrio",
     "orientamento": "Sinistra",
     "selezionato": false,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/MinistroGrazianoDelrio/"
+    "pagina": "https://www.facebook.com/MinistroGrazianoDelrio"
   },
   {
     "nome": "Michele Emiliano",
     "orientamento": "Centro Sinistra",
     "selezionato": false,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/micheleemiliano/"
+    "pagina": "https://www.facebook.com/micheleemiliano"
   },
   {
     "nome": "Giuseppe Civati",
     "orientamento": "Sinistra",
     "selezionato": true,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/giuseppecivati/"
+    "pagina": "https://www.facebook.com/giuseppecivati"
   },
   {
     "nome": "Laura Boldrini (gruppo misto)",
     "orientamento": "Sinistra",
     "selezionato": true,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/Laura-Boldrini-325228170920721/"
+    "pagina": "https://www.facebook.com/Laura-Boldrini-325228170920721"
   },
   {
     "nome": "Pietro Grasso",
     "orientamento": "Sinistra",
     "selezionato": false,
     "tipo": "Politico",
-    "pagina": "https://www.facebook.com/PietroGrasso/"
+    "pagina": "https://www.facebook.com/PietroGrasso"
   },
   {
     "nome": "Di martedì",
     "orientamento": "Sinistra",
     "selezionato": false,
     "tipo": "Programma TV",
-    "pagina": "https://www.facebook.com/dimartedi/"
+    "pagina": "https://www.facebook.com/dimartedi"
   },
   {
     "nome": "Piazzapulita",
     "orientamento": "Sinistra",
     "selezionato": false,
     "tipo": "Programma TV",
-    "pagina": "https://www.facebook.com/PiazzapulitaLA7/"
+    "pagina": "https://www.facebook.com/PiazzapulitaLA7"
   },
   {
     "nome": "Avvenire",
     "orientamento": "Trasv",
     "selezionato": false,
     "tipo": "Media",
-    "pagina": "https://www.facebook.com/avvenire.it/"
+    "pagina": "https://www.facebook.com/avvenire.it"
   },
   {
     "nome": "Il Sole 24 ORE",
     "orientamento": "Trasv",
     "selezionato": false,
     "tipo": "Media",
-    "pagina": "https://www.facebook.com/ilsole24ore/"
+    "pagina": "https://www.facebook.com/ilsole24ore"
   },
   {
     "nome": "Il Corriere della Sera",
     "orientamento": "Trasv",
     "selezionato": false,
     "tipo": "Media",
-    "pagina": "https://www.facebook.com/corrieredellasera/"
+    "pagina": "https://www.facebook.com/corrieredellasera"
   },
   {
     "nome": "La Stampa",
     "orientamento": "Trasv",
     "selezionato": false,
     "tipo": "Media",
-    "pagina": "https://www.facebook.com/lastampa.it/"
+    "pagina": "https://www.facebook.com/lastampa.it"
   },
   {
     "nome": "Lega - Salvini Premier",
     "orientamento": "Destra",
     "selezionato": true,
     "tipo": "Partito",
-    "pagina": "https://www.facebook.com/legasalvinipremier/"
+    "pagina": "https://www.facebook.com/legasalvinipremier"
   }
 ]
