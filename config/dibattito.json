@@ -1,0 +1,6 @@
+{
+    "schema": {
+        "dibattito": "dibattito"
+    },
+    "mongodb": "mongodb://localhost/e18"
+}
