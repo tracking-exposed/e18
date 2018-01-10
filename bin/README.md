@@ -9,6 +9,11 @@ Questo servizio è ancora da svilupparsi, si deve integrare con il sistema di an
 
 Questo servizio viene eseguito ogni 2 ore, scarica i risultati da 6 bot, viene usato per raccogliere come i 6 bot percepiscono uno scenario differente uno dall'altro. I bot sono stati addestrati come descritto alla sezione [addestramento dei bot](https://elezioni.tracking.exposed/distorsioni/addestramento)
 
+```
+DEBUG=*,-lib:mongo:read node bin/distorsioni.js --start 300 --end 0 --server https://facebook.tracking.exposed
+```
+
+
 ### sorveglianza.js
 
 Ogni link ad un argomento politico sarà letto dai chi si interessa all'argomento. Ma ogni aerticolo legge alcuni identificativi dell'utente e tiene traccia delle sue preferenze. Alla lunga, questo descrive il tuo orientamento. Queste informazioni hanno valore, perchè possono essere usate da compagnie come [Cambrige Analytica](https://www.valigiablu.it/cambridge-analytica-big-data-trump-facebook/) e sono i siti ai quali accedi che, a causa di tutti i *traccianti web* che ti servono insieme ai contenuti, abilitano questo mercato della sorveglianza.

@@ -15,21 +15,21 @@ var source = nconf.get('source');
 var start = _.parseInt(nconf.get('start')) || 3;
 var end = _.parseInt(nconf.get('end')) || 0;
 
-function saveIfNew(cName, element) {
-    return mongo.read(cName, { id: element.id })
-        .then(function(exists) {
-            if(_.get(exists, 'id') !== element.id)
-                return mongo
-                    .writeOne(cName, element)
-                    .return(true);
-            else
-                return null;
-        });
+function saveIfNew(cName, element, result) {
+    if(_.first(result))
+        return null;
+    return mongo
+        .writeOne(cName, element)
+        .return(true);
 };
 
 function saveImpressions(content) {
+    var impressionSaver = _.partial(saveIfNew, nconf.get('schema').fbtimpre);
     return Promise.map(content, function(element) {
-        return saveIfNew( nconf.get('schema').fbtimpre, element);
+        var iSaver = _.partial(impressionSaver, element);
+        return mongo
+            .read( nconf.get('schema').fbtimpre, { id: element.id })
+            .then(iSaver);
     }, { concurrency: 5})
     .then(_.compact)
     .then(_.size)
@@ -39,8 +39,12 @@ function saveImpressions(content) {
 }
 
 function savePosts(content) {
+    var postSaver = _.partial(saveIfNew, nconf.get('schema').fbtposts);
     return Promise.map(content, function(element) {
-        return saveIfNew( nconf.get('schema').fbtposts, element);
+        var pSaver = _.partial(postSaver, element);
+        return mongo
+            .read( nconf.get('schema').fbtposts, { postId: element.postId })
+            .then(pSaver);
     }, { concurrency: 5})
     .then(_.compact)
     .then(_.size)
@@ -65,6 +69,6 @@ return request
         ]);
     })
     .catch(function(e) {
-        debug("Error: %s", JSON.stringify(e, undefined, 2));
+        debug("Error: %s", e.message);
     });
 
