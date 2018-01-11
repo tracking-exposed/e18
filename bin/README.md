@@ -23,3 +23,9 @@ Sono i siti web i responsabili di questa situazione, e serve che si responsabili
 ### sponsorizzati.js
 
 Facebook è un sistema che ti promette visibilità (ma è solo un'illusione, come vediamo dalle statistiche della sezione 'distorsioni'), e poi vende la possibilità di apparire sulle bacheche degli utenti a seconda di alcune caratteristiche che li possono identificare (sei povero? sei di milano nord ?). Questo meccanismo ha un prezzo relativamente contenuto ed è stato usato, si dice dalle indagini in corso, da [una squadra di Russi per influenzare le scorso elezioni americane](http://www.ilsole24ore.com/art/mondo/2017-10-31/russiagate-post-mosca-facebook-126-milioni-americani-082833.shtml). In generale, dopo l'interrogazione che il Senato americano ha fatto a Facebook, [la commissione elettorale ha richiesto maggiore trasparenza sulla pubblicità politica](https://www.electoralcommission.org.uk/i-am-a/journalist/electoral-commission-media-centre/news-releases-donations/changes-to-political-finance-laws-recommended,-to-improve-transparency-and-confidence-in-elections), ma non è ancora così.
+
+Si basa sull'API
+```
+https://facebook.tracking.exposed/api/v1/metaxpt/IT/sponsored/0
+```
+

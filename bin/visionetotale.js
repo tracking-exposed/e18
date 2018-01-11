@@ -102,7 +102,7 @@ return Promise.map(days, function(d) {
 })
 .then(function(clean) {
     var e = _.countBy(clean, 'uniq');
-    debug("Unique id (not postId) are %d in a dataset of %d (%d possible conflics ahead, but solved really)",
+    debug("Unique id (not postId) are %d in a dataset of %d (%d time collision [solved])",
         _.size(e), _.size(clean), _.size(clean) - _.size(e) );
     return _.orderBy(clean, 'created_time');
 })

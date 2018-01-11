@@ -1,8 +1,41 @@
 
 include ../pagestruct
 
-div#className
-    h1 Titolo sponsorizz
-    p contenuto
-    a(href="https://pugjs.org/api/getting-started.html") Questa pagina è scritta con sintassi pug: un dialetto semplificato dell'HTML, se sai usare l'HTMl non è necessario che tu lo impari.
-    
+div.container-fluid
+
+    div.sezione.goal--cosa
+        h1(class="goal--cosa titolo") Pubblicità elettorale mirata
+        p(class="goal--cosa contenuto") È divenuto chiaro da qualche anno che un modo efficacie e poco costoso per fare propaganda elettorale è mandare pubblicità mirata. 
+        p(class="goal--cosa highlight") 
+        Ricordiamoci che Facebook, nonostante venga descirtto come social media, è una piattaforma pubblicitaria sui quali noi andiamo volontariamente. (
+            i dovremmo pensare all'azienda in relazione a come fa i quattrini, non a come Facebook racconta se stessa
+            |).
+        p(class="goal--cosa contenuto") Barak Obama l'ha fatto, i russi l'hanno fatto, i brasiliani, i canadesi, e in generale chiunque faccia una campagna elettorale cerca di dividere la popolazione in categorie e trovare il modo più rapido per convincerli a star dalla sua pparte. 
+        h1(class="goal--cosa titolo") Il risultato? anche se un partito comunicasse in contraddizione con se stesso, tu vedresti solo una versione delle promesse elettorali.
+
+    div.sezione.goal--come
+        h1(class="goal--come titolo") Ma l'approcio collaborativo viene in nostro aiuto
+        p(class="goal--come contenuto") Come la stimata agenzia di giornalismo investigativo americana ProPublica ha fatto, con un'estensione del browser (qui per Firefox, qui per Chrome) si possono raccogliere i post sponsorizzati che appaiono sulle nostre timeline. 
+
+        #sponsorizzati-totali
+
+    div.sezione.goal--cosa
+        p.goal--cosa.descrizione Quello che c'è sopra riguarda tutti i post pubblicitari che stiamo osservando dal territorio italiano. Per rendere la raccolta di valore, serve filtrare solo quelli che riguardano la comunicazione politica.
+
+    div.sezione.goal--aiutaci
+        h1.goal--aiutaci.titolo Intelligenza artificiale o selezione manuale?
+        ul.goal--aiutaci.lista
+            li 
+                b Intelligenza artificiale
+                |  è una delle risposte più di moda, ma sopratutto, ProPublica ha fatto così e messo disponibile il suo codice. Se non riceveremo aiuti, nelle prossime settimane lo implementeremo, ma se ti interessa il tema, c'è bisogno di te.
+            li
+                b Selezione manuale
+                |  invece riesce a toglierci un problema filosofico: cos'è politico? tutto quello che ha un impatto sulla percezione della cosa pubblica ha una componente politica. Non solo la comunicazione dei partiti, ma anche gruppi estemporanei e monotematici potrebbero fare comunicazione politica. Il giudizio di una o più persone esperte che valutano i post potrebbe valere di più di un computer addestrato. Anche per questo, però serve un gruppo di persone ed un'apposita interfaccia (che vi permetta di esprimere un voto da 1 a 3, immagino?).
+
+        p.goal--aiutaci.descrizione Non sappiamo quale sia il sistema migliore, entrambi hanno dei vantaggi e degli svantaggi, ma quel che devi capire è che siamo un gruppo composto da meno di 10 persone e senza finanziamenti, e da soli non potremo mai farcela. 
+
+    div.sezione.goal--cosadovrebbe
+        h1.goal--cosadovrebbe.titolo Facebook sa che la pubblicità mirata può essere abusata
+        p.goal--cosadovrebbe.descrizione Ha detto che probabilmente farà qualcosa, ed è nel loro interesse farci credere che Facebook sia esente da problemi :) ma il punto è alla base: se è possibile comunicare solo ad alcuni di noi, facendo leve sulle nostre credenze, debolezze e sogni, siamo davanti ad un sistema che prima ti studia e poi ti rivende. È intrinseco in quel modello un abuso. Noi per ora stiamo studiando il fenomeno, per poterlo rendere più digeribile al grande pubblico, ma questa non è ancora una soluzione, è solo lo studio del problema.
+
+include ../footer
