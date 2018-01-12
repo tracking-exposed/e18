@@ -1,4 +1,8 @@
 {
+    "schema": {
+        "fbposts": "fbposts"
+    },
+    "mongodb": "mongodb://localhost/e18",
     "interface": "127.0.0.1",
     "port": 7018
 }
