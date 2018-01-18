@@ -18,6 +18,10 @@ var end = _.parseInt(nconf.get('end')) || 0;
 function saveIfNew(cName, element, result) {
     if(_.first(result))
         return null;
+    if(_.get(element, 'publicationTime'))
+        element.publicationTime = new Date(element.publicationTime);
+    if(_.get(element, 'impressionTime'))
+        element.impressionTime = new Date(element.impressionTime);
     return mongo
         .writeOne(cName, element)
         .return(true);
@@ -68,6 +72,9 @@ return request
                 savePosts(composite.posts)
         ]);
     })
+    // accedere al DB selezionando i post delle ultime 24 ore
+    // ordinare per interazioni/visibilità
+    // fare aggregato da usarsi in `distorsioni`
     .catch(function(e) {
         debug("Error: %s", e.message);
     });
