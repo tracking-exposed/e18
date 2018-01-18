@@ -67,6 +67,7 @@ return request
         return JSON.parse(response.body);
     })
     .then(function(composite) {
+        debug("timewindow: %j", composite.timewindow);
         return Promise.all([
                 saveImpressions(composite.impressions),
                 savePosts(composite.posts)
