@@ -7,34 +7,13 @@ var Promise = require('bluebird');
 var mongo = require('../../../../lib/mongo');
 var various = require('../../../../lib/various');
 
-
-/*
-  { _id: { _bsontype: 'ObjectID', id: [Object] },
-    postId: '1690449564331296',
-    publicationTime: '2018-01-09T09:00:11Z',
-    pageName: 'legasalvinipremier',
-    text: 'Salvini: "Legittima difesa e espulsione clandestini. Missione compiuta"',
-    appears: [ [Object] ] },
-  { _id: { _bsontype: 'ObjectID', id: [Object] },
-    postId: '934445423390884',
-    publicationTime: '2018-01-09T09:00:09Z',
-    pageName: 'NoiconSalviniUfficiale',
-    text: 'Salvini: "Legittima difesa e espulsione clandestini. Missione compiuta"',
-    appears: [ [Object] ] },
-  { _id: { _bsontype: 'ObjectID', id: [Object] },
-    postId: '10155959017347644',
-    publicationTime: '2018-01-09T08:54:19Z',
-    pageName: 'giorgiameloni.paginaufficiale',
-    appears: [ [Object] ] },
-
-  */
-
 function distorsioni(req) {
 
     var daysago = 0;
     var collectionName = 'fbtposts';
     var fullp = __dirname + '/' + 'distorsioni.pug';
     var usersf = __dirname + '/../../fonti/utenti-exp1.json';
+    var pagef = __dirname + '/../../fonti/pagine-exp1.json';
     mongo.forcedDBURL = 'mongodb://localhost/e18';
 
     /* anzichè accedere a posts si dovrebbe prendere un merge di:
@@ -54,10 +33,9 @@ function distorsioni(req) {
     };
 
     return Promise.all([
-            mongo
-                .readLimit(collectionName, filter, {}, 1000, 0),
-            various
-                .loadJSONfile(usersf)
+            mongo.readLimit(collectionName, filter, {}, 1000, 0),
+            various.loadJSONfile(usersf),
+            various.loadJSONfile(pagef)
         ])
         .then(function(mix) {
 
@@ -89,6 +67,8 @@ function distorsioni(req) {
 
             /* users */
             var userinfo = encodeURI(JSON.stringify(mix[1]));
+            /* pages */
+            var pageinfo = encodeURI(JSON.stringify(mix[2]));
 
             /* HTTP render */
             return {
@@ -96,8 +76,9 @@ function distorsioni(req) {
                             fullp,
                             { pretty: true, debug: false }
                         )({
-                            postsmap: postlist,
-                            users: userinfo
+                            posts: postlist,
+                            users: userinfo,
+                            pages: pageinfo
                 })
             };
         });
