@@ -85,3 +85,20 @@ function loadDistorsions(containerId, strpp, stru, strpa) {
     }, []);
     generateDistortionTable(containerId, postsByPage, users);
 };
+
+
+// loadDocumentation
+//
+
+function exampleLoad(containerId, obj) {
+    $('<pre/>', { text: JSON.stringify(obj, undefined, 2)}).appendTo(containerId);
+};
+function loadDocumentation(fbtimpre, fbtposts, dibattito, judgment, entities) {
+
+    var kinds = ["fbtimpre", "fbtposts", "dibattito", "judgment", "entities"];
+
+    _.each([ fbtimpre, fbtposts, dibattito, judgment, entities ], function(o, i) {
+        var c = JSON.parse(decodeURI(o));
+        exampleLoad('#' + kinds[i], c);
+    });
+}

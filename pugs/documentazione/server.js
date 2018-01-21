@@ -14,27 +14,28 @@ function documentazione(req) {
      * e tiene in cache gli oggetti necessari. Li passa alla documentazione in 
      * modo da popolare la pagina con informazioni sempre plausibili e sempre aggiornate */
 
-    debug("serving .pug page with cached content");
     var fullp = __dirname + '/' + 'documentazione.pug';
-    var cachedOrMongo = [
-        getLastObjectByType({ params: { otype: "fbtimpre" }}),
-        getLastObjectByType({ params: { otype: "fbtposts" }}),
-        getLastObjectByType({ params: { otype: "dibattito" }}),
-        getLastObjectByType({ params: { otype: "judgment" }}),
-        getLastObjectByType({ params: { otype: "entities" }})
-    ]
-    return Promises.all(cachedOrMongo)
+
+    return Promises.all([
+            getLastObjectByType({ params: { otype: "fbtimpre" }}),
+            getLastObjectByType({ params: { otype: "fbtposts" }}),
+            getLastObjectByType({ params: { otype: "dibattito" }}),
+            getLastObjectByType({ params: { otype: "judgment" }}),
+            getLastObjectByType({ params: { otype: "entities" }})
+        ])
         .map(function(o) {
-            return o.json;
+            return encodeURI(JSON.stringify(o.json));
         })
         .then(function(o) {
             /* validateType of getLastObjectByType extend the object with .type */
-            var x = _.groupBy(o, 'type');
             return { 'text': 
                 pug.compileFile(fullp, {
                     pretty: true,
                     debug: false
-                })()
+                })(_.reduce( ["fbtimpre", "fbtposts", "dibattito", "judgment", "entities"], function(memo, e, i) {
+                    _.set(memo, e, o[i]);
+                    return memo;
+                }, {}))
             };
         });
 };
