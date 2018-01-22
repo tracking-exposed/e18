@@ -1,11 +1,20 @@
 function getPost(pages, index, field) {
     var r = _.get(pages.posts[index], field);
     if(!r) {
-        console.log("fail in", pages.pageName, index, field);
+        console.log("fail", field, "in", pages.pageName, index);
         return "";
     }
     return r;
 };
+
+function getTime(pages, index, field) {
+    var r = _.get(pages.posts[index], field);
+    if(!r) {
+        console.log("fail", field, "in", pages.pageName, index);
+        return "";
+    }
+    return moment(r).format("DD/MM/YY HH:mm");
+}
 
 function generateDistortionTable(container, postsByPages, users) {
 
@@ -37,7 +46,7 @@ function generateDistortionTable(container, postsByPages, users) {
         var sourceBlock = $('<div/>', { class: 'fonte' }).appendTo(first_td);
         var sourceName = $('<div/>', { class: 'nome', text: page.displayName }).appendTo(sourceBlock);
         var sourceOrient = $('<div/>', { class: 'orientamento', text: page.orientamento }).appendTo(sourceBlock);
-        var postTime = $('<div/>', { class: 'postTime', text: getPost(page, 0, 'publicationTime') }).appendTo(sourceBlock);
+        var postTime = $('<div/>', { class: 'postTime', text: getTime(page, 0, 'publicationTime') }).appendTo(sourceBlock);
         var postInfo = $('<div/>', { class: 'preview', text: getPost(page, 0, 'text') }).appendTo(sourceBlock);
 
         /* for every user, append a 'td' in the 'tr' and based on page.appears load the numbers */

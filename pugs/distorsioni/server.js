@@ -9,11 +9,8 @@ var various = require('../../../../lib/various');
 
 function distorsioni(req) {
 
-    var daysago = 0;
-    var collectionName = 'fbtposts';
+    var daysago = 9;
     var fullp = __dirname + '/' + 'distorsioni.pug';
-    var usersf = __dirname + '/../../fonti/utenti-exp1.json';
-    var pagef = __dirname + '/../../fonti/pagine-exp1.json';
     mongo.forcedDBURL = 'mongodb://localhost/e18';
 
     /* anzichè accedere a posts si dovrebbe prendere un merge di:
@@ -33,9 +30,9 @@ function distorsioni(req) {
     };
 
     return Promise.all([
-            mongo.readLimit(collectionName, filter, {}, 1000, 0),
-            various.loadJSONfile(usersf),
-            various.loadJSONfile(pagef)
+            mongo.readLimit('fbtposts', filter, {}, 1000, 0),
+            various.loadJSONfile(__dirname + '/../../fonti/utenti-exp1.json'),
+            various.loadJSONfile(__dirname + '/../../fonti/pagine-exp1.json')
         ])
         .then(function(mix) {
 
@@ -51,6 +48,10 @@ function distorsioni(req) {
             var topinteracted = _.reduce(_.groupBy(mix[0], 'pageName'), function(memo, l, p) {
                 var c = {
                     posts: _.take(_.orderBy(l, function(o) { return _.size(o.appears); }, 'desc'), 5),
+                    // posts: _.take(_.orderBy(l, function(o) { return _.size(o.appears); }, 'desc'), 5),
+                    // This was kind of OK to take the one with most collective engagement, but really, it is necessary?
+                    posts: _.times(5, function() { return _.sample(l); }),
+                    // now instead, 5 random sample are taken
                     pageName: p,
                     totals: _.size(l)
                 }
