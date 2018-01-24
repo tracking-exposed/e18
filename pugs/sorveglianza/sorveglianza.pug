@@ -2,8 +2,28 @@
 include ../stdheader
 include ../navbar
 
-div#className
-    h1 Titolo sorve
-    p contenuto
-    a(href="https://pugjs.org/api/getting-started.html") Questa pagina è scritta con sintassi pug: un dialetto semplificato dell'HTML, se sai usare l'HTMl non è necessario che tu lo impari.
-    
+div.container-fluid
+
+    div.sezione.goal--cosa
+        h1(class="goal--cosa titolo") Mentre tu leggi il web, il web legge te
+        p(class="goal--cosa contenuto") O meglio, 
+            span.contatore#numeroCompagnie
+            | compagnie sono state riconosciute negli ultimi
+            span.contatore#numeroArticoli
+            | analizzati.
+
+    div.sezione.goal--cosadovrebbe
+        h1.goal--cosadovrebbe.titolo Ma potrebbe essere diverso?
+        p.goal--cosadovrebbe.descrizione Sta a chi gestisce il sito installare il minor numero di taccianti. Uno è già uno di troppo, i numeri che vediamo dovrebbero suscitare imbarazzo. Nel frattempo, puoi difenderti autonomamente installando un 
+        a(href="https://www.ghostery.com/") AdBlocker 
+        | o 
+        a(href="https://www.eff.org/privacybadger") PrivacyBadger
+        |.
+
+    div.sezione.goal--cosa
+        #traccianti
+
+    script.
+        loadTrackers('#traccianti', '#numeroCompagnie', '#numeroArticoli' "#{data}")
+
+include ../footer

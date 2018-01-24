@@ -9,7 +9,7 @@ var various = require('../../../../lib/various');
 
 function distorsioni(req) {
 
-    var daysago = 9;
+    var daysago = nconf.get('daysago') ? _.parseInt(nconf.get('daysago')) : 0;
     var fullp = __dirname + '/' + 'distorsioni.pug';
     mongo.forcedDBURL = 'mongodb://localhost/e18';
 

@@ -11,14 +11,17 @@ div.container-fluid
         Ricordiamoci che Facebook, nonostante venga descirtto come social media, è una piattaforma pubblicitaria sui quali noi andiamo volontariamente. (
             i dovremmo pensare all'azienda in relazione a come fa i quattrini, non a come Facebook racconta se stessa
             |).
+
+        p.goal--cosa.contenuto Questa collezione elementi sponsorizzati non è stata (ancora) filtra, premi sul post per avere più informazioni.
+        #sponsorizzatitotali
+
+        h1(class="goal--cosa titolo") Non è veramente strano: è solo non regolamentato
         p(class="goal--cosa contenuto") Barak Obama l'ha fatto, i russi l'hanno fatto, i brasiliani, i canadesi, e in generale chiunque faccia una campagna elettorale cerca di dividere la popolazione in categorie e trovare il modo più rapido per convincerli a star dalla sua pparte. 
         h1(class="goal--cosa titolo") Il risultato? anche se un partito comunicasse in contraddizione con se stesso, tu vedresti solo una versione delle promesse elettorali.
 
     div.sezione.goal--come
         h1(class="goal--come titolo") Ma l'approcio collaborativo viene in nostro aiuto
         p(class="goal--come contenuto") Come la stimata agenzia di giornalismo investigativo americana ProPublica ha fatto, con un'estensione del browser (qui per Firefox, qui per Chrome) si possono raccogliere i post sponsorizzati che appaiono sulle nostre timeline. 
-
-        #sponsorizzati-totali
 
     div.sezione.goal--cosa
         p.goal--cosa.descrizione Quello che c'è sopra riguarda tutti i post pubblicitari che stiamo osservando dal territorio italiano. Per rendere la raccolta di valore, serve filtrare solo quelli che riguardano la comunicazione politica.
@@ -38,5 +41,9 @@ div.container-fluid
     div.sezione.goal--cosadovrebbe
         h1.goal--cosadovrebbe.titolo Facebook sa che la pubblicità mirata può essere abusata
         p.goal--cosadovrebbe.descrizione Ha detto che probabilmente farà qualcosa, ed è nel loro interesse farci credere che Facebook sia esente da problemi :) ma il punto è alla base: se è possibile comunicare solo ad alcuni di noi, facendo leve sulle nostre credenze, debolezze e sogni, siamo davanti ad un sistema che prima ti studia e poi ti rivende. È intrinseco in quel modello un abuso. Noi per ora stiamo studiando il fenomeno, per poterlo rendere più digeribile al grande pubblico, ma questa non è ancora una soluzione, è solo lo studio del problema.
+
+    script.
+        loadSponsored('#sponsorizzatitotali')
+
 
 include ../footer
