@@ -4,7 +4,7 @@ var pug = require('pug');
 var Promises = require('bluebird');
 var nconf = require('nconf').env();
 
-var getLastObjectByType = require('../../../../routes/getLastObjectByType');
+var getLastObjectByType = require('../../../../routes/getObjectByType').getLastObjectByType;
 
 var campaignName = nconf.get('campaign');
 
@@ -15,16 +15,12 @@ function documentazione(req) {
      * modo da popolare la pagina con informazioni sempre plausibili e sempre aggiornate */
 
     var fullp = __dirname + '/' + 'documentazione.pug';
+    var targets = ["fbtimpre", "fbtposts", "dibattito", "judgment", "entities"];
 
-    return Promises.all([
-            getLastObjectByType({ params: { otype: "fbtimpre" }}),
-            getLastObjectByType({ params: { otype: "fbtposts" }}),
-            getLastObjectByType({ params: { otype: "dibattito" }}),
-            getLastObjectByType({ params: { otype: "judgment" }}),
-            getLastObjectByType({ params: { otype: "entities" }})
-        ])
+    return Promises
+        .all(_.map(targets, _.partial(getLastObjectByType)))
         .map(function(o) {
-            return encodeURI(JSON.stringify(o.json));
+            return encodeURI(JSON.stringify(o));
         })
         .then(function(o) {
             /* validateType of getLastObjectByType extend the object with .type */
@@ -32,7 +28,7 @@ function documentazione(req) {
                 pug.compileFile(fullp, {
                     pretty: true,
                     debug: false
-                })(_.reduce( ["fbtimpre", "fbtposts", "dibattito", "judgment", "entities"], function(memo, e, i) {
+                })(_.reduce(targets, function(memo, e, i) {
                     _.set(memo, e, o[i]);
                     return memo;
                 }, {}))

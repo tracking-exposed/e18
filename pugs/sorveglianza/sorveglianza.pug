@@ -6,24 +6,31 @@ div.container-fluid
 
     div.sezione.goal--cosa
         h1(class="goal--cosa titolo") Mentre tu leggi il web, il web legge te
-        p(class="goal--cosa contenuto") O meglio, 
+        p(class="goal--cosa contenuto") Dai nostri 6 bot che osservano le fonti politiche di Facebook, 
             span.contatore#numeroCompagnie
-            | compagnie sono state riconosciute negli ultimi
+            | compagnie sono state riconosciute ne 
             span.contatore#numeroArticoli
-            | analizzati.
-
-    div.sezione.goal--cosadovrebbe
-        h1.goal--cosadovrebbe.titolo Ma potrebbe essere diverso?
-        p.goal--cosadovrebbe.descrizione Sta a chi gestisce il sito installare il minor numero di taccianti. Uno è già uno di troppo, i numeri che vediamo dovrebbero suscitare imbarazzo. Nel frattempo, puoi difenderti autonomamente installando un 
-        a(href="https://www.ghostery.com/") AdBlocker 
-        | o 
-        a(href="https://www.eff.org/privacybadger") PrivacyBadger
-        |.
+            | articoli analizzati ieri. Se pensi non sia un problema, puoi leggere questo approfondimento su 
+            a(href="http://www.pagina99.it/2017/02/03/campagna-elttorale-donald-trump-cambridge-analytica-like-facebook/") Cambrige Analytica
+            |, o guardare la puntata di Report "
+            a(href="http://www.report.rai.it/dl/Report/puntata/ContentItem-0de6de4e-6351-4aad-ab94-96b1672402ac.html") Sorvegliati Speciali
+            |". Qui trovi i 30 link più invasivi. Il record (negativo) di ieri è
+            span.contatore#campione
+            |. Qualcuno sta anche comportandosi bene, puoi vedere le statistiche totali.
 
     div.sezione.goal--cosa
         #traccianti
 
+    div.sezione.goal--cosadovrebbe
+        h1.goal--cosadovrebbe.titolo Ma potrebbe essere diverso?
+        p.goal--cosadovrebbe.descrizione Sta a chi gestisce il sito installare il minor numero di taccianti. Uno è già uno di troppo, i numeri che vediamo dovrebbero suscitare imbarazzo. Nel frattempo, puoi difenderti autonomamente installando un 
+            a(href="https://www.ghostery.com/") AdBlocker 
+            | o 
+            a(href="https://www.eff.org/privacybadger") PrivacyBadger
+            |.
+
+
     script.
-        loadTrackers('#traccianti', '#numeroCompagnie', '#numeroArticoli' "#{data}")
+        loadTrackers('#traccianti', '#numeroCompagnie', '#numeroArticoli', "#{data}")
 
 include ../footer

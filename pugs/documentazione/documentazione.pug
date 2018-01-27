@@ -20,22 +20,32 @@ div.container-fluid
         h2 Post
         p(class="goal--cosa documentazione") Il post è il contenuto creato da chi pubblica su Facebook. Noi chiamiamo post qualunque elemento (link, foto, album, testo, video). Il tipo di contenuto è una variabile all'interno del post, il post è identificato da un postId che è unico per ogni post. Navigando su https://facebook.com/$mettereilnumerodelPostId si verrà reindirizzati al post originale.
         #fbtposts
+        h3.download Scarica gli archivi settimanali
+        #fbtpostsdownloads
 
         h2 Impression
         p(class="goal--cosa documentazione") Un'impression è un post che appare sulla timeline di Facebook. Esistono le impression sponsorizzate e quelle delle fonti seguite (amici, pagine, gruppi). Ogni impression può apparire ad un utente più di una volta, e durante la sua vita ha un numero di like/share/commenti che cambia. Ogni impression è associata ad un post. Quelle che scaricherai riguarda solo i post non sponsorizzati. 
         #fbtimpre
+        h3.download Scarica gli archivi settimanali
+        #fbtimpredownloads
 
         h2 Analisi semantica
         #entities
         p(class="goal--cosa documentazione") Estraendo dal formato delle API di dandelion.eu, 
+        h3.download Scarica gli archivi settimanali
+        #entitiesdownloads
 
         h2 Analisi dei traccianti
         #judgment
         p(class="goal--cosa documentazione") Analisi delle terze parti traccianti. Le compagnie che sono presenti quando navighiamo su pagine che palrano di politica (sono presenti su qualuqnue altra, ma appaiono in modo dinamico. Chissà quali di questi trackers vende info a Cambrige-Analityca ?)
+        h3.download Scarica gli archivi settimanali
+        #judgmentdownloads
 
         h2 Effettivo dibattito percepito
         #dibattito
         p(class="goal--cosa documentazione") Siccome i media producono un mucchio di notizie, non tutte ci sono mostrate. C'è da comprare quindi quelle mostrate in 'impressions' e 'posts', con gli oggetti scaricati tramite le facebook API, a monitorare le fonti. In questo modo siamo a conoscenza del 100% di quello che viene pubblicato.
+        h3.download Scarica gli archivi settimanali
+        #judgmentdownloads
 
     script.
         loadDocumentation("#{fbtimpre}",  "#{fbtposts}", "#{dibattito}", "#{judgment}", "#{entities}");

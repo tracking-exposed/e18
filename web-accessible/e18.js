@@ -95,13 +95,10 @@ function loadDistorsions(containerId, strpp, stru, strpa) {
     generateDistortionTable(containerId, postsByPage, users);
 };
 
-
-// loadDocumentation
-//
-
 function exampleLoad(containerId, obj) {
     $('<pre/>', { text: JSON.stringify(obj, undefined, 2)}).appendTo(containerId);
 };
+
 function loadDocumentation(fbtimpre, fbtposts, dibattito, judgment, entities) {
 
     var kinds = ["fbtimpre", "fbtposts", "dibattito", "judgment", "entities"];
@@ -111,3 +108,51 @@ function loadDocumentation(fbtimpre, fbtposts, dibattito, judgment, entities) {
         exampleLoad('#' + kinds[i], c);
     });
 }
+
+function loadTrackers(containerTabella, containerNCompagnie, containerNArt, data) {
+    var judgment = JSON.parse(decodeURI(data));
+
+    $(containerNCompagnie).text(judgment.compagnieUniche);
+    $(containerNArt).text(judgment.total);
+
+    console.log(judgment);
+
+    var div = $('<div/>', { class: 'trackersList' });
+
+    _.each(judgment.ranks, function(site) {
+        var sitediv = $('<div/>', { class: 'site' });
+
+        /* il link in testa */
+        var urldiv = $('<div/>', { class: 'url' });
+        var a = $('<a/>', { class: 'link', href: site.name, text: site.name });
+        a.appendTo(urldiv);
+        urldiv.appendTo(sitediv);
+
+        _.each([
+            ['traccianti attivi', site.post ? site.post : "0" ],
+            ['script', site.totalNjs],
+            ['"trattano" dati', site.companies ],
+            ['cookies', site.cookies ] 
+        ], function(nfo) {
+            var info = $('<span/>', { class: 'info'} );
+            var labeltext = $('<div/>', { class: 'etichetta', text: nfo[0] });
+            labeltext.appendTo(info);
+            var numbertxt = $('<div/>', { class: 'numeri', text: nfo[1] });
+            numbertxt.appendTo(info);
+            info.appendTo(sitediv);
+        });
+
+        var compagnie = $('<span/>', { class: 'compagnie' });
+        _.each(site.c, function(cname) {
+            var clean = _.replace(cname, /['"-+\ ]/g, '');
+            var clabel = $('<span/>', { class: 'compagnia ' + clean, text: cname });
+            clabel.appendTo(compagnie);
+        });
+        compagnie.appendTo(sitediv);
+
+        sitediv.appendTo(div);
+    });
+
+    $(containerTabella).append(div); // perchè non è veramente una tabella...
+};
+
