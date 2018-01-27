@@ -1,25 +1,27 @@
-
 include stdheader
 include navbar
-
 
 .sezione.goal--cosa
     h3 Benvenuti! un prototipone di progetto in via di sviluppo: codice su 
         a(href="https://github.com/tracking-exposed/e18") github.com/tracking-exposed/e18
-    h2 non c'è ancora una vera homepage, scegli per i menu:
+    h2 Il tuo menù:
         ul
             li
-                a(href="/distorsioni") Sbroglia l'algoritmo
-                p.orientamento Per ora una versione basilare dei dati esportati. I post riportati sono quelli con più interazioni, quindi sembra più equilibrato di quello che è. Vorrei che i post cambiasero un po' randomicamente. Poi ci dovrebbe essere l'iconografia della pagina visibile nella tabella, e magari dei colori o delle bandiere di riferimento sotto all'orientamento politico.
+                a(href="/distorsioni") Sbroglia l'algoritmo - Studia la bolla
+                p.orientamento 6 bot sotto il nostro controllo hanno 0 amici, seguono le stesse
+                    a(href="https://github.com/tracking-exposed/e18/blob/master/fonti/utenti-exp1.json") 30 pagine politiche/schierate 
+                    |, si collegano allo stesso momento e collezionano i post che Facebook gli mostra. Sono tutti uguali? no, perchè li abbiamo "polarizzati" in modo differente. C'è il pentastellato che mette like alle sue fonti, il Destra/Sinistra/CentroSinistra e poco altro. La visualizzazione va migliorata, ma per ora, è un esempio concreto di come l'algoritmo di facebook crea/rinforza (o magari no!) bolle ideologiche. 
             li
-                a(href="/sponsorizzati") Rendiconta gli "Sponsorizzati"
-                p.orientamento Tramite
-                    b  tutti gli utenti italiani che installano l'estensione
-                    |  possiamo analizzare i post sponsorizzati ricevuti su Facebook. Non è ancora pronta, ma ci manca poco.
-
+                a(href="/sponsorizzati") Propaganda, contenuti Sponsorizzati mirati: Qui possono tornare ad essere pubblici.
+                p.orientamento La propaganda/pubblicità elettorale viene veicolata (anche) tramite Facebook, ma possiamo monitorarla con uno sforzo collettivo. può essere Tramite
+                    b  tutti gli utenti italiani che installano 
+                        a(href="https://facebook.tracking.exposed") l'estensione
+                    |  possiamo analizzare i post sponsorizzati ricevuti su Facebook. Non è ancora pronta, c'è una piccola issue da fixare. Servirebbe qualcuno aiutasse con il deep learning implementato in: 
+                    a(href="https://github.com/propublica/facebook-political-ads") Propublica & political ads
+                    |.
             li
-                a(href="/sorveglianza") Elettorato, dal web sorvegliato.
-                p.orientamento Tramite i 6 bot Deve essere la lista dei link con più trackers. ci sono dati di dettagli sul tipo, le compagnie, i cookie, etc. Ho i dati nel DB, non il testo e non la webapp
+                a(href="/sorveglianza") "chi tratta i dati", traccianti su contenuti politici
+                p.orientamento Tramite i 6 bot Deve essere la lista dei link con più trackers. ci sono altri dati esportabili, per ora c'è solo una visualizzazione che non scala dei 30 link più invasivi.
             li
                 a(href="/documentazione") (API e documentazione)
                 p.orientamento Qui son documentati i dati disponibili, manca ancora link per download, ma ci si fa un'idea
