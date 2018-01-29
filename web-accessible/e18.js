@@ -123,7 +123,7 @@ function loadDocumentation(files, fbtimpre, fbtposts, dibattito, judgment, entit
             var max = moment({ year: 2018 }).add(weekn, 'w').format("YYYY-MM-DD");
             var textstr = "Settimana numero " + weekn + ", fino al " + max + " dati di tipo " + name;
                 
-            var dwnllink = $('<a>', { text: textstr, href: finfo, class: "download" });
+            var dwnllink = $('<a>', { text: textstr, href: _.replace(finfo, /\.json/, ''), class: "download" });
             $("#" + rootname + "downloads").append(dwnllink);
         });
     });
