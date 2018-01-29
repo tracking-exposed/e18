@@ -1,0 +1,24 @@
+server {
+    listen 443 ssl;
+    server_name elezioni.tracking.exposed;
+    access_log /var/log/nginx/elezioni.tracking.exposed.log;
+
+    ssl_certificate     /etc/letsencrypt/live/elezioni.tracking.exposed/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/elezioni.tracking.exposed/privkey.pem;
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+
+    location / {
+	proxy_set_header   X-Real-IP            $remote_addr;
+        proxy_set_header   X-Forwarded-For  	$proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto 	$scheme;
+        proxy_set_header   Host                 $http_host;
+        proxy_pass 				http://localhost:7018;
+    }
+}
+
+server {
+    listen 80;
+    server_name elezioni.tracking.exposed;
+    rewrite ^/(.*)$ https://elezioni.tracking.exposed/$1 permanent;
+}
