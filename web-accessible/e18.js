@@ -99,13 +99,33 @@ function exampleLoad(containerId, obj) {
     $('<pre/>', { text: JSON.stringify(obj, undefined, 2)}).appendTo(containerId);
 };
 
-function loadDocumentation(fbtimpre, fbtposts, dibattito, judgment, entities) {
+function loadDocumentation(files, fbtimpre, fbtposts, dibattito, judgment, entities) {
 
     var kinds = ["fbtimpre", "fbtposts", "dibattito", "judgment", "entities"];
 
     _.each([ fbtimpre, fbtposts, dibattito, judgment, entities ], function(o, i) {
         var c = JSON.parse(decodeURI(o));
         exampleLoad('#' + kinds[i], c);
+    });
+
+    files = JSON.parse(decodeURI(files));
+    console.log(files);
+    _.each(kinds, function(rootname) {
+
+        var fit = _.filter(files, function(f) {
+            console.log(f, rootname, f.match(rootname) );
+            return f.match(rootname);
+        });
+        _.each(fit, function(finfo) {
+            var list = _.split(finfo, '/');
+            var name = _.replace(list.pop(), /-[\d+]\.json/, '');
+            var weekn = _.parseInt(list.pop());
+            var max = moment({ year: 2018 }).add(weekn, 'w').format("YYYY-MM-DD");
+            var textstr = "Settimana numero " + weekn + ", fino al " + max + " dati di tipo " + name;
+                
+            var dwnllink = $('<a>', { text: textstr, href: finfo, class: "download" });
+            $("#" + rootname + "downloads").append(dwnllink);
+        });
     });
 }
 
