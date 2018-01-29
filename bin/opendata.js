@@ -4,7 +4,6 @@ var moment = require('moment');
 var Promise = require('bluebird');
 var debug = require('debug')('e18:bin:opendata');
 var fs = Promise.promisifyAll(require('fs'));
-var CSV = require('csv-string');
 
 var mongo = require('../../../lib/mongo');
 var supported = require('../../../routes/getObjectByType').supported;
