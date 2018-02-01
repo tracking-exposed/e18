@@ -15,16 +15,61 @@ var source = nconf.get('source');
 var start = _.parseInt(nconf.get('start')) || 3;
 var end = _.parseInt(nconf.get('end')) || 0;
 
-function saveIfNew(cName, element, result) {
-    if(_.first(result))
-        return null;
+function mergeOnlyIfDiff(list1, list2) {
+    var idl1 = _.map(list1, 'id');
+    var idl2 = _.map(list2, 'id');
+
+    if(!(idl1 && idl2)) return null;
+
+    if(_.size(idl1) != _.size(_.intersection(idl1, idl2))) {
+        _.each(list2, function(a) {
+            if(!_.find(list1, {id: a.id}))
+                list1.push(a);
+        });
+        return list1;
+    }
+    return null;
+};
+
+function fixDates(element) {
     if(_.get(element, 'publicationTime'))
         element.publicationTime = new Date(element.publicationTime);
     if(_.get(element, 'impressionTime'))
         element.impressionTime = new Date(element.impressionTime);
+    return element;
+}
+
+function saveIfNew(cName, element, result) {
+
+    /* if result[0] and element exists and they have different .appears, 
+     *      it should be merged and updated.
+     * if result[0] and element exists and they don't differ, don't save.
+     * if result don't exists, save.
+     *
+     * remind: this function can be used for posts and for impressions,
+     * but this section is only for post: this could lead to some
+     * confusion: has to be split!
+     */
+    if(element.appears && result[0]) {
+        var merge = mergeOnlyIfDiff(element.appears, result[0].appears);
+        if(merge) {
+            _.set(element, 'appears', merge);
+            return mongo
+                .updateOne(cName, {postId: element.postId}, element)
+                .return("updated");
+        }
+        else
+            return "appearences unchanged";
+
+    } else if(_.first(result))
+        return null;
+        // this make sense for impression, not for posts
+
+    element = fixDates(element);
+
     return mongo
         .writeOne(cName, element)
-        .return(true);
+        .return("created");
 };
 
 function saveImpressions(content) {
@@ -50,10 +95,9 @@ function savePosts(content) {
             .read( nconf.get('schema').fbtposts, { postId: element.postId })
             .then(pSaver);
     }, { concurrency: 5})
-    .then(_.compact)
-    .then(_.size)
-    .tap(function(saved) {
-        debug("Received %d posts, saved %d new", _.size(content), saved);
+    .then(_.countBy)
+    .tap(function(result) {
+        debug("Received %d posts, %s", _.size(content), JSON.stringify(result, undefined, 2));
     });
 }
 
