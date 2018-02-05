@@ -1,16 +1,21 @@
-
-nav.navbar.navbar-default
-  .container-fluid
-    .navbar-header
-      a.navbar-brand(href="/") 
-        span(class="glyphicon glyphicon-home")
-    ul.nav.navbar-nav
-      li
-        a(href="/distorsioni") Sbroglia l'algoritmo
-      li
-        a(href="/sponsorizzati") Rendiconta gli "Sponsorizzati"
-      li
-        a(href="/sorveglianza") Sorveglia l'elettorato
-      li
-        a(href="/documentazione") (API e documentazione)
+nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
+    .container
+        a.navbar-brand(href='/') BETA!
+            span(class="glyphicon glyphicon-home")
+        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarResponsive', aria-controls='navbarResponsive', aria-expanded='false', aria-label='Toggle navigation')
+            span.navbar-toggler-icon
+        #navbarResponsive.collapse.navbar-collapse
+            ul.navbar-nav.ml-auto
+                li.nav-item.active
+                    a.nav-link(href='/')
+                        span(class="glyphicon glyphicon-home")
+                        span.sr-only (current)
+                    li.nav-item
+                        a.nav-link(href='/distorsioni') Sbroglia l'algoritmo
+                    li.nav-item
+                        a.nav-link(href='/sorveglianza') Leggi e vendi gli elettori
+                    li.nav-item
+                        a.nav-link(href='/sponsorizzati') Pubblicità mirata
+                    li.nav-item
+                        a.nav-link(href='/documentazione') (API e OpenData)
 

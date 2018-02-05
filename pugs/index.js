@@ -4,6 +4,7 @@ module.exports = {
     sponsorizzati: require('./sponsorizzati/server.js'),
     dibattito: require('./dibattito/server.js'),
     sorveglianza: require('./sorveglianza/server.js'),
+    partecipare: require('./partecipare/server.js'),
 
     contatti: require('./statiche/server.js'),
     filosofia: require('./statiche/server.js'),
