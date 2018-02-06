@@ -181,5 +181,20 @@ function loadSponsored(containerId, data) {
 
     console.log(containerId);
     console.log(promoinfo);
+    console.log("mah");
 
+    var div = $('<div/>', { class: 'advertisingList' });
+
+    _.each(promoinfo, function(entry) {
+        if(entry.title) {
+            var ed = $('<li/>', { class: 'adventry', text: entry.title });
+            /*
+            var details = $('<div/>', { class: 'detail', text: entry.ownerName });
+            details.appendTo(ed);
+            */
+            ed.appendTo(div);
+        }
+    });
+
+    $(containerId).append(div);
 };

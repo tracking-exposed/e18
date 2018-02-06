@@ -48,7 +48,7 @@ return Promise
                     debug("Incomplete week detected: it will just be override like the others");
 
                 if(pseudo.dates.min.isBefore(moment("2018-01-14"))) {
-                    debug("Skipping because too early: %s", JSON.stringify(pseudo.dates, undefined, 2));
+                    debug("Skipping (%s) because the test was not even begin at %s", pseudo.cname, JSON.stringify(pseudo.dates, undefined, 2));
                     return null;
                 }
 
