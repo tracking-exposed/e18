@@ -176,3 +176,10 @@ function loadTrackers(containerTabella, containerNCompagnie, containerNArt, data
     $(containerTabella).append(div); // perchè non è veramente una tabella...
 };
 
+function loadSponsored(containerId, data) {
+    var promoinfo = JSON.parse(decodeURI(data));
+
+    console.log(containerId);
+    console.log(promoinfo);
+
+};

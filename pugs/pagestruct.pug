@@ -2,119 +2,117 @@ include stdheader
 include navbar
 
 header
-    #carouselExampleIndicators.carousel.slide(data-ride='carousel' data-interval="10000")
+    #carouselExampleIndicators.carousel.slide(data-ride='carousel' data-interval="12000")
         ol.carousel-indicators
             li.active(data-target='#carouselExampleIndicators', data-slide-to='0')
             li(data-target='#carouselExampleIndicators', data-slide-to='1')
             li(data-target='#carouselExampleIndicators', data-slide-to='2')
+
         .carousel-inner(role='listbox')
+            .container-fluid
+                .carousel-item.active(style="background-image: url('/campaign/background-homer.png')")
+                    .carousel-caption
+                        h2.impact--0.left L'algoritmo di Facebook, sceglie ciò che vedi, fino a
+                        h2.impact--1.right mostrarti una realtà diversa
+                        h2.impact--0.left a seconda dei like che hai messo...
 
-
-            .carousel-item.active(style="background-image: url('/campaign/background-homer.png')")
-                .carousel-caption.d-none.d-md-block
-                    h2.impact--0.left L'algoritmo di Facebook, sceglie ciò che vedi, fino a
-                    h2.impact--1.right mostrarti una realtà diversa
-                    h2.impact--0.left a seconda dei like che hai messo...
-
-            .carousel-item(style="background-image: url('/campaign/background-homer.png')")
-                .carousel-caption.d-none.d-md-block
-                    h3.impact--1.left In italia 25 milioni di utenti usano Facebook per scambiarsi informazione, subire la propaganda, intrattenesi
+                .carousel-item(style="background-image: url('/campaign/background-homer.png')")
+                    .carousel-caption
+                        h3.impact--1.left In italia 25 milioni di utenti usano Facebook per scambiarsi informazione, subire la propaganda, intrattenesi
+                            br
+                            span.weird--0 il tutto è curato da un algoritmo che, si dice, adatto alla persona
+                            |.
                         br
-                        span.weird--0 il tutto è curato da un algoritmo che, si dice, adatto alla persona
-                        |.
-                    br
-                    h1 Elezioni 2018: è l'algoritmo ad informarti!
-                    br
-                    h3.impact--0.right quindi, abbiamo degli un esperimenti...
+                        h1 Elezioni 2018: è l'algoritmo ad informarti!
+                        br
+                        h3.impact--0.right quindi, abbiamo degli un esperimenti...
 
-            .carousel-item(style="background-image: url('/campaign/background-homer.png')")
-                .carousel-caption.d-none.d-md-block
-                    h2.right 6 utenti fatti da noi, senza amici, che seguono 30 fonti politiche da tutti gli orientamenti. 
-                    h2.right Accedono a facebook allo stesso momento, scorrono automaticamente la loro 
-                        i bacheca 
-                        | e 
-                        i memorizziamo
-                    h2.right A queste condizioni dovrebbero vedere le stesse cose, se non fosse che
-                    h2.impact--0.left stiamo addestrando l'algoritmo
-                    include profili
+                .carousel-item(style="background-image: url('/campaign/background-homer.png')")
+                    .carousel-caption
+                        h2.right 6 utenti fatti da noi, senza amici, che seguono 30 fonti politiche da tutti gli orientamenti. 
+                        h2.right Accedono a facebook allo stesso momento, scorrono automaticamente la loro 
+                            i bacheca 
+                            | e 
+                            i memorizziamo
+                        h2.right A queste condizioni dovrebbero vedere le stesse cose, se non fosse che
+                        h2.impact--0.left stiamo addestrando l'algoritmo
+                        include profili
+                       
+                .carousel-item(style="background-image: url('/campaign/background-homer.png')")
+                    .carousel-caption
+
+                        h3.left Accediamo varie volte al giorno, e analizziamo quello che Facebook da loro
+                        h2.small.right ... i dati raccolti, riccome riguardano 6 robot che seguono solo fonti di ovvio carattere pubblico e politico, sono completamente disponibili se vuoi fare le tue 
+                            a(href="/documentazione") analisi
+                        br
+                        h2.impact--1.left L'algoritmo crea bolle ideologiche?
+                        h2.impact--1.right Quanto materiale viene scartato?
+                        h2.impact--0.left Vedi il dibattito completo?
+                        include profili
+
+                .carousel-item(style="background-image: url('/campaign/background-homer.png')")
+                    .carousel-caption
+                        h2.impact--0.left Queste sono solo ipotetiche persone, ma anche senza avere una polarizzazione così marcata
+                        h2.impact--1.right Ogni utente Facebook è soggetto all'algoritmo!
+                        br
+                        br
+                        h2 Puoi aiutarci nell'
+                            a(href="/partecipare") analisi
+                        h3 se usi facebook da computer (non da mobile) puoi installare l'estensione, per 
+                            a(target="_blank" href="https://chrome.google.com/webstore/detail/facebooktrackingexposed/fnknflppefckhjhecbfigfhlcbmcnmmi") Chrome
+                            |, o per 
+                            a(target="_blank" href="https://addons.mozilla.org/en-US/firefox/addon/facebook-tracking-exposed/") Firefox
+                            |.
+
+
+                .carousel-item(style="background-image: url('/campaign/background-homer.png')")
+                    .carousel-caption
+                        h1.left Non è tutto,
+                        h2.impact--0.left sappiamo che facebook vende la tua attenzione a gli inserzionisti...
+                        h1.left e quello che viene pubblicizzato ad un'elettrice
+                        h2.impact--1.right è diverso da quello che vede la sua vicina
+                        h1.left così come il dirimpettaio, il fratello, i capi...
+                        h2.left E' noto che siamo dossierati da facebook, e 
+                            i venduta la possibilità di apparire sulla nostra bacheca 
+                            | per via dei nostri comportamenti accuratamente mappati.
+                        h2.left Il sistema poi ci collega in una fascia d'età, in una classe sociale, se usiamo i mezzi pubblici, la nostra religione, l'educazione...
+
+                .carousel-item(style="background-image: url('/campaign/background-homer.png')")
+                    .carousel-caption
+                        h1 Solo un osservazione collettiva può mappare la diversità della propaganda
+                        table 
+                        p Le istutzioni sono lente a reagine, ma un gruppo eterogeneo di utenti, se sufficentemente grante, 
+                            b può ottenere un risultarto nuovo, unico
+                            |, per questo
+                            a(href="/partecipare") ti invitamo a partecipare!
+
+                .carousel-item(style="background-image: url('/campaign/background-homer.png')")
+                    .carousel-caption
+                        h2 cosa ricevuto hanno, chi ci supporta?
+                        small (ops, al momento non possiamo ancora fare la distinzione automatica tra pubblicità politica e non politica), ma di certo, per vedere le diverse forme della propaganda, ci servono molteplici occhi sul social network. Ancora, stessa estensione, puoi contribuire instllandotitela: 
+                            a(target="_blank" href="https://chrome.google.com/webstore/detail/facebooktrackingexposed/fnknflppefckhjhecbfigfhlcbmcnmmi") Chrome
+                            |, o 
+                            a(target="_blank" href="https://addons.mozilla.org/en-US/firefox/addon/facebook-tracking-exposed/") Firefox
+                            |.
                    
-            .carousel-item(style="background-image: url('/campaign/background-homer.png')")
-                .carousel-caption.d-none.d-md-block
-
-                    h3.left Accediamo varie volte al giorno, e analizziamo quello che Facebook da loro
-                    h2.small.right ... i dati raccolti, riccome riguardano 6 robot che seguono solo fonti di ovvio carattere pubblico e politico, sono completamente disponibili se vuoi fare le tue 
-                        a(href="/documentazione") analisi
-                    br
-                    h2.impact--1.left L'algoritmo crea bolle ideologiche?
-                    h2.impact--1.right Quanto materiale viene scartato?
-                    h2.impact--0.left Vedi il dibattito completo?
-                    include profili
-
-            .carousel-item(style="background-image: url('/campaign/background-homer.png')")
-                .carousel-caption.d-none.d-md-block
-                    h2.impact--0.left Queste sono solo ipotetiche persone, ma anche senza avere una polarizzazione così marcata
-                    h2.impact--1.right Ogni utente Facebook è soggetto all'algoritmo!
-                    br
-                    br
-                    h2 Puoi aiutarci nell'
-                        a(href="/partecipare") analisi
-                    h3 se usi facebook da computer (non da mobile) puoi installare l'estensione, per 
-                        a(target="_blank" href="https://chrome.google.com/webstore/detail/facebooktrackingexposed/fnknflppefckhjhecbfigfhlcbmcnmmi") Chrome
-                        |, o per 
-                        a(target="_blank" href="https://addons.mozilla.org/en-US/firefox/addon/facebook-tracking-exposed/") Firefox
-                        |.
+                .carousel-item(style="background-image: url('/campaign/background-homer.png')")
+                    .carousel-caption
+                        h2.impact--0 Quando tu leggi il web, il web legge te
+                        p.left I più tracciati 30 link visti ed analizzati dai profili. Ci sono varie analisi fatte sulle compagnie, sugli script e sul comportamento dei traccianti, ma non c'è un'interfaccia grafica sufficentemente sviluppata da farli capire tutti. contattaci su 
+                            a(href='https://github.com/tracking-exposed/e18') github
+                            |  o scarica (alcuni dei) dati in formato 
+                            a(href='https://invi.sible.link/api/v1/details/e18') JSON
+                            |.
+                        include sorveglianza/elementodescritto
 
 
-            .carousel-item(style="background-image: url('/campaign/background-homer.png')")
-                .carousel-caption.d-none.d-md-block
-                    h1.left Non è tutto,
-                    h2.impact--0.left sappiamo che facebook vende la tua attenzione a gli inserzionisti...
-                    h1.left e quello che viene pubblicizzato ad un'elettrice
-                    h2.impact--1.right è diverso da quello che vede la sua vicina
-                    h1.left così come il dirimpettaio, il fratello, i capi...
-                    h2.left E' noto che siamo dossierati da facebook, e 
-                        i venduta la possibilità di apparire sulla nostra bacheca 
-                        | per via dei nostri comportamenti accuratamente mappati.
-                    h2.left Il sistema poi ci collega in una fascia d'età, in una classe sociale, se usiamo i mezzi pubblici, la nostra religione, l'educazione...
+            a.carousel-control-prev(href='#carouselExampleIndicators', role='button', data-slide='prev')
+                span.carousel-control-prev-icon(aria-hidden='true')
+                span.sr-only Precedente
 
-            .carousel-item(style="background-image: url('/campaign/background-homer.png')")
-                .carousel-caption.d-none.d-md-block
-                    h1 Solo un osservazione collettiva può mappare la diversità della propaganda
-                    table 
-                    p Le istutzioni sono lente a reagine, ma un gruppo eterogeneo di utenti, se sufficentemente grante, 
-                        b può ottenere un risultarto nuovo, unico
-                        |, per questo
-                        a(href="/partecipare") ti invitamo a partecipare!
-
-            .carousel-item(style="background-image: url('/campaign/background-homer.png')")
-                .carousel-caption.d-none.d-md-block
-                    h2 Guarda allora la pubblicità politica che gli altri anno ricevuto
-                    small (ops, al momento non possiamo ancora fare la distinzione automatica tra pubblicità politica e non politica), ma di certo, per vedere le diverse forme della propaganda, ci servono molteplici occhi sul social network, puoi contribuire instllandoti un'estensione per 
-                        a(target="_blank" href="https://chrome.google.com/webstore/detail/facebooktrackingexposed/fnknflppefckhjhecbfigfhlcbmcnmmi") Chrome
-                        |, o per
-                        a(target="_blank" href="https://addons.mozilla.org/en-US/firefox/addon/facebook-tracking-exposed/") Firefox
-                        |.
-               
-            .carousel-item(style="background-image: url('/campaign/background-homer.png')")
-                .carousel-caption.d-none.d-md-block
-                    h2 Quando tu leggi il web, il web legge te
-                    p scopri quali sono le compagnie che trattando i tuoi dati, ma ancora peggio: scopri quanto i giornali di cui ti fidi, vendono la tua unicità, i tuoi interessi, le tue attenzioni
-
- 
-            .carousel-item(style="background-image: url('/campaign/background-homer.png')")
-                .carousel-caption.d-none.d-md-block
-                    h1 Elezioni 2018: uno sguardo dietro le quinte, su
-                    h2 Algoritmi, pubblicità mirata, propaganda
-                    p Nota: gli scopi di questa analisi non sono di giudicare i partiti ed i loro stili pubblicitari, e neppure analizzare i social media nei modi consoni alle aziende. E' educare la cittadinanza a vedere alcune delle differenze che ci sono tra vecchi media e nuovi media, visto che il dibattito a riguardo oscilla tra lo scarso e quello dettato dalle corporation dei dati.
-
-
-        a.carousel-control-prev(href='#carouselExampleIndicators', role='button', data-slide='prev')
-            span.carousel-control-prev-icon(aria-hidden='true')
-            span.sr-only Precedente
-
-        a.carousel-control-next(href='#carouselExampleIndicators', role='button', data-slide='next')
-            span.carousel-control-next-icon(aria-hidden='true')
-            span.sr-only Prossimo
+            a.carousel-control-next(href='#carouselExampleIndicators', role='button', data-slide='next')
+                span.carousel-control-next-icon(aria-hidden='true')
+                span.sr-only Prossimo
 
 
 script(src='/js/vendor/jquery/jquery.js')
