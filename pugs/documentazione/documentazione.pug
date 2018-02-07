@@ -40,15 +40,20 @@ div.container-fluid
 
         h2 Analisi dei traccianti
         #judgment
-        p(class="goal--cosa documentazione") Analisi delle terze parti traccianti. Le compagnie che sono presenti quando navighiamo su pagine che palrano di politica (sono presenti su qualuqnue altra, ma appaiono in modo dinamico. Chissà quali di questi trackers vende info a Cambrige-Analityca ?)
+        p(class="goal--cosa documentazione") Analisi delle terze parti traccianti. Le compagnie che sono presenti quando navighiamo su pagine che palrano di politica (sono presenti su qualuqnue altra, ma cambiano dinamicamente. Chissà quali di questi trackers vende dati a Cambrige-Analytica ?)
         h3.download Scarica gli archivi settimanali
         #judgmentdownloads
 
-        h2 Effettivo dibattito percepito
+        h2 Effettivo dibattito spinto
         #dibattito
-        p(class="goal--cosa documentazione") Siccome i media producono un mucchio di notizie, non tutte ci sono mostrate. C'è da comprare quindi quelle mostrate in 'impressions' e 'posts', con gli oggetti scaricati tramite le facebook API, a monitorare le fonti. In questo modo siamo a conoscenza del 100% di quello che viene pubblicato.
+        p(class="goal--cosa documentazione") I media producono un mucchio di notizie, non tutte ci vengono mostrate. Ci sarebbe quindi da comparare questi archivi, con quello effettivamente ricevuto dagli utenti. Questi dati sono raccolti tramite le facebook API.
         h3.download Scarica gli archivi settimanali
-        #judgmentdownloads
+        #dibattitodownloads
+
+        h2 Pubblicità mirata - post Sponsorizzati
+        #sponsored
+        p(class="goal--cosa documentazione") I post sponsorizzati ed anonimizzati raccolti tramite facebook.tracking.exposed; vanno separarte le promozioni politiche da quelle non politiche.
+        #sponsoreddownloads
 
     script.
-        loadDocumentation("#{files}", "#{fbtimpre}",  "#{fbtposts}", "#{dibattito}", "#{judgment}", "#{entities}");
+        loadDocumentation("#{files}", "#{fbtimpre}", "#{fbtposts}", "#{dibattito}", "#{judgment}", "#{entities}", "#{sponsored}");
