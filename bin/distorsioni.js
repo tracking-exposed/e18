@@ -54,6 +54,7 @@ function saveIfNew(cName, element, result) {
         var merge = mergeOnlyIfDiff(element.appears, result[0].appears);
         if(merge) {
             _.set(element, 'appears', merge);
+            element = fixDates(element);
             return mongo
                 .updateOne(cName, {postId: element.postId}, element)
                 .return("updated");
