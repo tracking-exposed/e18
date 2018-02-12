@@ -77,6 +77,11 @@ return glob(source + '/**/*.json', function(error, jsonfl) {
                 };
             })
             .then(importPostsFile)
-    }, {concurrency: 1});
+	    .catch(function(error) {
+		debug("Error (.loadJSONfile) %s %s", jsonf, error.message);
+		return null;
+	    })
+    }, {concurrency: 1})
+    .then(_.compact);
 
 });
