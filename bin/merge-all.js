@@ -13,203 +13,287 @@ var various = require('../../../lib/various');
 
 nconf.argv().env();
 
-var DEBSPLI = _.parseInt(nconf.get('D')) || 500;
+var begin ="2018-01-05";
+var day = _.parseInt(nconf.get('day'));
+if(!day)
+    console.log("You need to specify --day and implicitly say which day is processed after the 10th of January");
 
-/* This function just generate links from entitities (via id) posts -> impressionId */
-var absolute = 0;
-var produced = 0;
-function entitiesLink(o, i) {
-    mongo.forcedDBURL = 'mongodb://localhost/e18';
-
-    absolute++;
-    if(!(absolute % DEBSPLI))
-        console.log("-- entities processed", absolute, "times, produced", produced, "links");
-
-    return mongo
-        .read('fbtposts', { 'externals.id' : o.id })
-        .then(function(posts) {
-
-            var links = _.map(_.map(_.flatten(_.map(posts, 'appears')), 'id'), function(impreId) {
-                return {
-                    impressionId: impreId,
-                    externalId: o.id,
-                    url: o.url,
-                    original: o.original,
-                    labels: _.map(o.annotations, 'label'),
-                    message: o.message,
-                    dandelion: !!_.size(o.annotations)
-                };
-            });
-
-            if(_.size(links))
-                produced += _.size(links);
-
-            return links;
-        });
-};
+/* declarations start below */
 
 
-var begin ="2018-01-10";
-var maxday = _.parseInt(nconf.get('days')) || 30;
-debug("Starting since the %s days to follow up are: %d (%s)", begin,
-    maxday, moment(begin).add(maxday, 'd').format("ddd DD MMM") );
+/* for every impression look at the associated post.
+ *      if there is an external, look at entities.
+ * the facebook original post in the DB 
+ *      (maybe is older then the impression), and count viztimes
+ */ 
+function xtimpression(impressions, profiles) {
 
-var queries = _.times(maxday, function(d) {
-    var startw = moment(begin).add(d, 'd').toISOString();
-    var endw = moment(begin).add(d + 1, 'd').toISOString();
-    return { publicationTime: {
-        '$lte': new Date(endw),
-        '$gt': new Date(startw)
-    }};
-});
+    return Promise.map(impressions.results, function(impre) {
+        /* timezone fix */
+        impre.impressionTime = new Date(moment(impre.impressionTime).add(1, 'h').toISOString());
+        impre.visualizationDiff += 3600;
 
-var attempted = 0;
-var actuallyfound = 0;
-function getEntities(filter) {
-    mongo.forcedDBURL = 'mongodb://localhost/facebook';
-
-    return mongo
-        .read('entities', filter)
-        .map(entitiesLink, { concurrency: 4})
-        .then(_.flatten)
-        .tap(function(links) {
-            debug("generated links between entities->post->impression.id took since the day %s\t[%s] %d",
-                moment(filter.publicationTime["$lte"]).format("DD/MMMM"),
-                moment.duration(moment() - moment(filter.publicationTime["$lte"])).humanize(),
-                _.size(links)
-            );
-        })
-};
-
-function writeData(destDb, destCname, entry) {
-    mongo.forcedDBURL = destDb;
-    return mongo
-        .writeMany(destCname, entry)
-        .then(function(res) {
-            debug("writeMany success: %d entries", _.size(entry));
-            return _.size(entry);
-        })
-        .catch(function(e) {
-            debug("writeMany error: \t%d\t%s", _.size(entry), e.errmsg ? "1: " + e.errmsg : "2: " + e.message);
-            return 0;
-        })
-};
-
-var polarizzazione = [];
-var fromFB = [];
-var saveEntImpre = _.partial(writeData, 'mongodb://localhost/e18', 'entimpre');
-
-return various
-    .loadJSONfile('fonti/utenti-exp1.json')
-    .then(function(pol) {
-        polarizzazione = pol;
-        mongo.forcedDBURL = 'mongodb://localhost/e18';
-        var startw = new Date(moment(begin).toISOString());
-        var endw = new Date(moment(begin).add(maxday + 2, 'd').toISOString());
-        // TODO: created time diventa un index
-        return mongo
-            .read('dibattito', { created_time: { "$lte": endw, "$gte": startw }}, { created_time: -1});
-    })
-    .tap(function(res) {
-        debug("Acquired unfiltered reading of `dibattito` column %d [%s - %s]",
-            _.size(res), _.first(res).created_time, _.last(res).created_time);
-    })
-    .map(function(ap) {
-        ap.publicationTime = new Date(ap.created_time);
-        return ap;
-    })
-    .then(function(apis) {
-        fromFB = apis;
-        return Promise
-            .map(queries, getEntities, { concurrency: 3})
-            .then(_.flatten)
-            .tap(function(res) {
-                debug("all the links generated entities->post->impression.id are %d", _.size(res));
-            })
-    })
-    .map(function(link) {
         mongo.forcedDBURL = 'mongodb://localhost/e18';
         return mongo
-            .read('fbtimpre', { id: link.impressionId })
+            .read('fbtposts', { 'postId': impre.postId })
             .then(_.first)
-            .then(function(impre) {
+            .then(function(post) {
+                if(!post) return null;
 
-                attempted++;
-                if(!(attempted % DEBSPLI))
-                    console.log("++ impressions accessed", attempted);
+                var postInfo = _.pick(post, ['text', 'postId']);
+                postInfo.orientaBot = _.find(profiles, { bot: impre.profile }).orientamento;
 
-                var r = _.merge(
-                    _.pick(link, ['externalId', 'dandelion', 'url', 'original', 'labels', 'message' ]),
-                    _.omit(impre, [ '_id'])   // id is htmlId
-                );
+                if(_.size(post.externals)) {
+                    /*
+                    if(_.size(post.externals) > 1)
+                        debug("More than 1 analyzed link in postId %s (impression %s)", post.postId, impre.id);
+                        */
+                    postInfo.entities_query = { id: post.externals[0].id };
+                }
 
-                r.orientamentoBot = _.find(polarizzazione, { bot: impre.profile }).orientamento;
-                r.publicationTime = new Date(impre.publicationTime);
-                r.impressionTime = new Date(impre.impressionTime);
-
-                return r;
+                return postInfo;
+            })
+            .then(function(postInfo) {
+                if(postInfo.entities_query) {
+                    mongo.forcedDBURL = 'mongodb://localhost/facebook';
+                    return mongo
+                        .read('entities', postInfo.entities_query)
+                        .then(_.first)
+                        .then(function(entities) {
+                            _.unset(postInfo, 'entities_query');
+                            if(!entities) {
+                                debug("Error in %s", postInfo);
+                                postInfo.broken = false;
+                                return postInfo;
+                            }
+                            postInfo.externalId = entities.id;
+                            postInfo.url = entities.url;
+                            postInfo.original = entities.original;
+                            postInfo.dandelion = !!_.size(entities.annotations)
+                            if(entities.annotations)
+                                postInfo.labels = _.map(entities.annotations, 'label');
+                            else
+                                postInfo.derror = entities.message;
+                            return postInfo;
+                        });
+                }
+                return postInfo;
+            })
+            .then(function(postInfo) {
+                if(!postInfo) {
+                    impre.broken = true;
+                    debugger;
+                }
+                else
+                    _.extend(impre, postInfo);
+                return impre;
             })
             .catch(function(error) {
-                debug("Error caught %s (%j)", error.message, link);
+                debug("Error trap in processExtendImpressions, %s: %s", impre.id, error.message);
+                impre.broken = true;
+                return impre;
             });
     }, { concurrency: 10 })
-    .then(function(impreent) {
+    .tap(function(intermediary) {
+        debug("broken: %s dandelion: %s",
+            JSON.stringify( _.countBy(intermediary, 'broken'), undefined, 2),
+            JSON.stringify( _.countBy(intermediary, 'dandelion'), undefined, 2)
+        );
+    })
+    .then(_.orderBy('impressionTime', 'Asc'))
+    .map(function(extimp) {
+        /* now look in the `merge` database where the FBapi posts are kept: found the same, 
+         * count the previously seen, save this */
+        var inheritance = ['from', 'created_time', 'description', 'link', 'message', 'name',
+                           'picture', 'type', 'author_id', 'created_seconds', 'sourceName',
+                           'fb_post_id', 'orientaFonte', 'linked' ];
 
-        var nonviz = _.reduce(fromFB, function(memo, p) {
-            var check = _.find(impreent, { postId: p.postId });
-            // if a post is found, should get linked in `visualized` below
-            if(check)
-                return memo;
+        mongo.forcedDBURL = 'mongodb://localhost/e18';
+        return mongo
+            .read('merge', { postId: extimp.postId }, { 'created_time': -1} )
+            .then(function(previous) {
 
-            p.visualized = false;
-            p.linked = false;
-            /*
-             --------------------------------------------------------------
-            p.orientaFonte = _.reduce(polarizzazione, function(memo, bot) {
-                _.each(bot.riferimenti, function(pageurl) {
-                    var rgpx = new RegExp("/" + p.sourceName + "/i")
-                    if(pageurl.match(rgpx)) {
-                        debug("prima volta associato da [%s] a [%s]", memo, bot.orientamento);
-                        memo = bot.orientamento;
-                    }
-                });
-                return memo;
-            }, "non attribuito");                                        */
+                if(_.size(previous)) {
+                    extimp.display =_.size(previous);
+                    _.extend(extimp, _.pick(previous[0], inheritance));
+                    extimp.linked = true;
+                } else 
+                    extimp.linked = false;
 
-            _.each(['ANGRY', 'WOW', 'SAD', 'LOVE', 'HAHA'], function(emotion) {
-                _.unset(p, emotion);
+                return mongo
+                    .writeOne('merge', extimp)
+                    .return(extimp)
+                    .catch(function(error) {
+                        if(error.code !== 11000) /*  'E11000 duplicate key error collection */
+                            debug("Error in writeOne: %s", error.message);
+                        return null;
+                    });
             });
-            p.id = p.fb_post_id;
 
-            memo.push(p);
-            return memo;
-        }, []);
-
-        debug("First selection done, FBapi posts avail %d, not visualized %d", _.size(fromFB),_.size(nonviz));
-
-        var visualized = _.map(impreent, function(ie) {
-            var tru = _.find(fromFB, { postId: ie.postId });
-            if(tru) {
-                _.each(['ANGRY', 'WOW', 'SAD', 'LOVE', 'HAHA'], function(emotion) {
-                    _.unset(tru, emotion);
-                });
-                return _.merge(ie, tru, { visualized: true, linked: true });
-            }
-            else
-                return _.merge(ie, { visualized: true, linked: false });
-        });
-
-        debug("impreent (visualized) %d linked %s",
-            _.size(visualized), JSON.stringify(_.countBy(visualized, 'linked'), undefined, 2));
-
-        return _.orderBy(_.concat(visualized, nonviz), 'publicationTime', 'Asc');
+    }, {concurrency: 10})
+    .tap(function(intermediary) {
+        debug("linked %s", JSON.stringify( _.countBy(intermediary, 'linked'), undefined, 2));
     })
-    .map(function(e) {
-        e.when = new Date();
-        _.unset(e, '_id');
-        return e;
-    })
-    .then(function(x) {
-        debug("Merged resuls %d splitting in %d chunks", _.size(x), _.size(x) / 1000);
-        return saveEntImpre(x);
+    .then(function(rv) {
+        debug("xtimpression: saved %d posts (starting from %d), diff %d",
+            _.size(rv), impressions.elements, impressions.elements - _.size(rv)
+        );
+        return {
+            processed: rv,
+            start: impressions.start
+        };
     });
+}
+
+function specialAttributions(post) {
+    // special cases: pages with the name different from the URL 
+    if(post.from.id === "411675765615435") return "Fascisti uniti per L'italia";
+    if(post.from.id === "325228170920721") return "Laura Boldrini";
+    return "INVALIDSOURCE";
+};
+
+function FBapi(fbposts, profiles) {
+
+    var stripFields = ['likes', 'shares', 'ANGRY', 'WOW', 'SAD', 'LOVE', 'HAHA'];
+    return Promise.map(fbposts.results, function(p) {
+
+        var rgpx = new RegExp(p.sourceName, 'i')
+        p.orientaFonte = _.reduce(profiles, function(memo, bot) {
+            _.each(bot.riferimenti, function(pageurl) {
+                if(pageurl.match(rgpx))
+                    memo = bot.orientamento;
+            });
+            return memo;
+        }, "INVALIDSOURCE");
+
+        if(p.orientaFonte === "INVALIDSOURCE")
+            p.orientaFonte = specialAttributions(p);
+
+        _.each(stripFields, function(emotion) {
+            _.unset(p, emotion);
+        });
+        p.id = p.fb_post_id;
+        p.display = 0;
+
+        // only the post belonging to the text are here considered:
+        //          EXTERNAL SOURCES ARE STRIPPED HERE
+        //          ^^^^^^^^ ^^^^^^^ ^^^ ^^^^^^^^ ^^^^
+
+        if(p.orientaFonte === "INVALIDSOURCE") {
+            // debug("removing %j", p.from);
+            return null;
+        } else {
+            mongo.forcedDBURL = 'mongodb://localhost/e18';
+            return mongo
+                .writeOne('merge', p)
+                .return(p)
+                .catch(function(error) {
+                    if(error.code !== 11000) /*  'E11000 duplicate key error collection */
+                        debug("Error in writeOne: %s", error.message);
+                    return null;
+                });
+        }
+    }, { concurrency: 10} )
+    .then(_.compact)
+    .tap(function(intermediary) {
+        debug("sources %s dandelion: %s",
+            JSON.stringify( _.countBy(intermediary, 'orientaFonte'), undefined, 2),
+            JSON.stringify( _.countBy(intermediary, 'dandelion'), undefined, 2)
+        );
+    })
+    .then(function(rv) {
+        debug("FBapi: saved %d posts (starting from %d), diff %d",
+            _.size(rv), fbposts.elements, fbposts.elements - _.size(rv)
+        );
+        return {
+            processed: rv,
+            start: fbposts.start
+        };
+    });
+};
+
+function dbByDate(day, column, timevar) {
+    mongo.forcedDBURL = 'mongodb://localhost/e18';
+
+    var startw = moment(begin).add(day, 'd').toISOString();
+    var endw = moment(begin).add(day + 1, 'd').toISOString();
+    var filter = _.set({}, timevar, {
+        '$lte': new Date(endw),
+        '$gt': new Date(startw)
+    });
+
+    return mongo
+        .read(column, filter, _.set({}, timevar, -1))
+        .map(function(e) {
+            _.unset(e, '_id');
+            return e;
+        })
+        .then(function(results) {
+            return {
+                start: moment(startw),
+                end: moment(endw),
+                diff: moment.duration(moment(startw) - moment()),
+                elements: _.size(results),
+                results: results,
+                column: column,
+                day: day
+            };
+        });
+};
+
+/* take statistics from the post received in API and from Impressions */
+function saveStatistics(api, impre) {
+
+    // split in chunks of every 5 minutes 
+    _.times(24 * 12, function(minshift) {
+        var lower = moment(data.start).add(minshift * 5, 'm');
+        minshift += 1;
+        var upper = moment(data.start).add(minshift * 5, 'm');
+
+        var x = _.filter(api.processed, function(e) {
+            return check.isBefore( moment(_.get(e, timevar)) );
+        });
+    });
+};
+
+/* execution start below */
+
+debug("This script analyzes only one day per time (%s), and update the databases: `merge` `mergestats`",
+    moment(begin).add(day, 'd').format("ddd DD MMM") );
+
+return Promise.all([
+    dbByDate(day, 'fbtimpre', 'impressionTime'),
+    dbByDate(day, 'dibattito', 'created_time' ),
+    various.loadJSONfile('fonti/utenti-exp1.json')
+    // + read in mergestats
+])
+.then(function(mix) {
+    // mix[0] is fbtimpre
+    debug("Impressions are %d (the day %s -> %s), %s ago",
+            mix[0].elements, mix[0].start.format("DD/MMM hh:mm"), mix[0].end.format("DD/MMM hh:mm"), mix[0].diff.humanize()
+    );
+    // mix[1] is dibattito
+    debug("Facebook API posts are %d (the day %s -> %s), %s ago",
+            mix[1].elements, mix[1].start.format("DD/MMM hh:mm"), mix[1].end.format("DD/MMM hh:mm"), mix[1].diff.humanize()
+    );
+    debug("Profiles are %d", _.size(mix[2]));
+
+    // Here the sequence is importan: 
+    //  before it is saved fbposts of the timewindow
+    //  then are addressed the impression, so we are sure the published post of the previous day are already
+    //  present. If they are not, it is a problem in our scheduled jobs or in our postId parsing
+    //  after: the stats
+    return FBapi(mix[1], mix[2])
+        .then(function(fbapistats) {
+            debug("now the FBapi posts have been saved, we'll address the impressions");
+            return xtimpression(mix[0], mix[2]);
+/*
+                .then(function(fbtstats) {
+                    return saveStatistics(fbapistats, fbtstats);
+                });
+                */
+        });
+})
+.tap(function(result) {
+    debug("Done!");
+});
