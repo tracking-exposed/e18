@@ -154,6 +154,8 @@ function specialAttributions(post) {
 
 function FBapi(fbposts, profiles) {
 
+    var ignoredSources = 0;
+    var debugxx = [];
     var stripFields = ['likes', 'shares', 'ANGRY', 'WOW', 'SAD', 'LOVE', 'HAHA'];
     return Promise.map(fbposts.results, function(p) {
 
@@ -166,7 +168,7 @@ function FBapi(fbposts, profiles) {
             return memo;
         }, "INVALIDSOURCE");
 
-        if(p.orientaFonte === "INVALIDSOURCE")
+        if(p.orientaFonte === "INVALIDSOURCE" && post.from && post.from.id )
             p.orientaFonte = specialAttributions(p);
 
         _.each(stripFields, function(emotion) {
@@ -180,7 +182,10 @@ function FBapi(fbposts, profiles) {
         //          ^^^^^^^^ ^^^^^^^ ^^^ ^^^^^^^^ ^^^^
 
         if(p.orientaFonte === "INVALIDSOURCE") {
+
+            ignoredSource++;
             // debug("removing %j", p.from);
+            debugxx.push(p.sourceName)
             return null;
         } else {
             mongo.forcedDBURL = 'mongodb://localhost/e18';
@@ -196,7 +201,9 @@ function FBapi(fbposts, profiles) {
     }, { concurrency: 10} )
     .then(_.compact)
     .tap(function(intermediary) {
-        debug("sources %s dandelion: %s",
+        debug("invalidsource %d %s--- sources %s dandelion: %s",
+            ignoredSources,
+            JSON.stringify( debugxx, undefined, 4),
             JSON.stringify( _.countBy(intermediary, 'orientaFonte'), undefined, 2),
             JSON.stringify( _.countBy(intermediary, 'dandelion'), undefined, 2)
         );
