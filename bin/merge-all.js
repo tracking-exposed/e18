@@ -154,8 +154,8 @@ function specialAttributions(post) {
 		sx: 'Sinistra'
 	};
     // special cases: pages with the name different from the URL 
-    if(post.from.id === "411675765615435") return listeO.fasci; // "Fascisti uniti per L'italia";
-    if(post.from.id === "325228170920721") return listeO.sx; // "Laura Boldrini";
+    if(post.sourceName === "411675765615435") return listeO.fasci; // "Fascisti uniti per L'italia";
+    if(post.sourceName === "325228170920721") return listeO.sx; // "Laura Boldrini";
     return "INVALIDSOURCE";
 };
 
@@ -191,13 +191,15 @@ function FBapi(fbposts, profiles) {
 
         if(p.orientaFonte === "INVALIDSOURCE") {
             ignoredSources +=1;
-	    if(!p.from)
-		debug("wtf %j", p);
-	    else {
-               _.set(D1, p.from.id, p.from.name);
-               _.set(D2, p.sourceName, null);
+            /*
+            if(!p.from)
+                debug("wtf %j", p);
+            else {
+                _.set(D1, p.from.id, p.from.name);
+                _.set(D2, p.sourceName, null);
                 debug("removing %j", p.from);
-	    }
+            }
+            */
             return null;
         } else {
             mongo.forcedDBURL = 'mongodb://localhost/e18';
@@ -213,18 +215,18 @@ function FBapi(fbposts, profiles) {
     }, { concurrency: 10} )
     .then(_.compact)
     .tap(function(intermediary) {
-        debug("invalidsource %d %s--- sources %s dandelion: %s",
+        debug("invalidsource %d --- orientaFonte %s --- dandelion: %s",
             ignoredSources,
             JSON.stringify( _.countBy(intermediary, 'orientaFonte'), undefined, 2),
             JSON.stringify( _.countBy(intermediary, 'dandelion'), undefined, 2)
         );
+        debug("1: %s", JSON.stringify(D1, undefined, 2));
+        debug("2: %s", JSON.stringify(D2, undefined, 2));
     })
     .then(function(rv) {
         debug("FBapi: saved %d posts (starting from %d), diff %d",
             _.size(rv), fbposts.elements, fbposts.elements - _.size(rv)
         );
-        debug("1: %s",JSON.stringify(D1, undefined, 2));
-        debug("2: %s",JSON.stringify(D2, undefined, 2));
         return {
             processed: rv,
             start: fbposts.start
