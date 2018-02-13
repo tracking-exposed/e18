@@ -29,7 +29,7 @@ function importPostsFile(fp) {
         e.author_id = combo[0];
         e.postId = combo[1];
         e.created_seconds = moment(e.created_time).valueOf();
-        e.sourceName = (_.split(fp.fname, '/')[2]).replace(/\.json$/, '');
+        e.sourceName = _.split(fp.fname, '/').pop().replace(/\.json$/, '');
         e.fname = fp.fname;
         e.fb_post_id = e.id;
         _.unset(e, 'id');
