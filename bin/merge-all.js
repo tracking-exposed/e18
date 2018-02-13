@@ -146,16 +146,24 @@ function xtimpression(impressions, profiles) {
 }
 
 function specialAttributions(post) {
+	var listeO = {
+		fasci: 'Fascistoide',
+		dx: 'Destra',
+		dc: 'Centro Sinistra',
+		m5: 'M5S',
+		sx: 'Sinistra'
+	};
     // special cases: pages with the name different from the URL 
-    if(post.from.id === "411675765615435") return "Fascisti uniti per L'italia";
-    if(post.from.id === "325228170920721") return "Laura Boldrini";
+    if(post.from.id === "411675765615435") return listeO.fasci; // "Fascisti uniti per L'italia";
+    if(post.from.id === "325228170920721") return listeO.sx; // "Laura Boldrini";
     return "INVALIDSOURCE";
 };
 
 function FBapi(fbposts, profiles) {
 
     var ignoredSources = 0;
-    var debugxx = [];
+    var D1 = {};
+    var D2 = {};
     var stripFields = ['likes', 'shares', 'ANGRY', 'WOW', 'SAD', 'LOVE', 'HAHA'];
     return Promise.map(fbposts.results, function(p) {
 
@@ -168,7 +176,7 @@ function FBapi(fbposts, profiles) {
             return memo;
         }, "INVALIDSOURCE");
 
-        if(p.orientaFonte === "INVALIDSOURCE" && post.from && post.from.id )
+        if(p.orientaFonte === "INVALIDSOURCE" && p.from && p.from.id )
             p.orientaFonte = specialAttributions(p);
 
         _.each(stripFields, function(emotion) {
@@ -182,10 +190,14 @@ function FBapi(fbposts, profiles) {
         //          ^^^^^^^^ ^^^^^^^ ^^^ ^^^^^^^^ ^^^^
 
         if(p.orientaFonte === "INVALIDSOURCE") {
-
-            ignoredSource++;
-            // debug("removing %j", p.from);
-            debugxx.push(p.sourceName)
+            ignoredSources +=1;
+	    if(!p.from)
+		debug("wtf %j", p);
+	    else {
+               _.set(D1, p.from.id, p.from.name);
+               _.set(D2, p.sourceName, null);
+                debug("removing %j", p.from);
+	    }
             return null;
         } else {
             mongo.forcedDBURL = 'mongodb://localhost/e18';
@@ -203,7 +215,6 @@ function FBapi(fbposts, profiles) {
     .tap(function(intermediary) {
         debug("invalidsource %d %s--- sources %s dandelion: %s",
             ignoredSources,
-            JSON.stringify( debugxx, undefined, 4),
             JSON.stringify( _.countBy(intermediary, 'orientaFonte'), undefined, 2),
             JSON.stringify( _.countBy(intermediary, 'dandelion'), undefined, 2)
         );
@@ -212,6 +223,8 @@ function FBapi(fbposts, profiles) {
         debug("FBapi: saved %d posts (starting from %d), diff %d",
             _.size(rv), fbposts.elements, fbposts.elements - _.size(rv)
         );
+        debug("1: %s",JSON.stringify(D1, undefined, 2));
+        debug("2: %s",JSON.stringify(D2, undefined, 2));
         return {
             processed: rv,
             start: fbposts.start
