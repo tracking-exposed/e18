@@ -47,11 +47,11 @@ function importPostsFile(fp) {
     return Promise.map(savingO, function(o) {
         return mongo
             .writeOne('dibattito', o)
-            .catch(function(e) {
-                return { fname: fp.fname, result: false };
-            })
             .then(function(r) {
                 return { fname: fp.fname, result: true };
+            })
+            .catch(function(e) {
+                return { fname: fp.fname, result: false };
             });
     }, {concurrency: 10})
     .then(function(rlist) {
