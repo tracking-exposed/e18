@@ -162,8 +162,6 @@ function specialAttributions(post) {
 function FBapi(fbposts, profiles) {
 
     var ignoredSources = 0;
-    var D1 = {};
-    var D2 = {};
     var stripFields = ['likes', 'shares', 'ANGRY', 'WOW', 'SAD', 'LOVE', 'HAHA'];
     return Promise.map(fbposts.results, function(p) {
 
@@ -191,15 +189,6 @@ function FBapi(fbposts, profiles) {
 
         if(p.orientaFonte === "INVALIDSOURCE") {
             ignoredSources +=1;
-            /*
-            if(!p.from)
-                debug("wtf %j", p);
-            else {
-                _.set(D1, p.from.id, p.from.name);
-                _.set(D2, p.sourceName, null);
-                debug("removing %j", p.from);
-            }
-            */
             return null;
         } else {
             mongo.forcedDBURL = 'mongodb://localhost/e18';
@@ -220,8 +209,6 @@ function FBapi(fbposts, profiles) {
             JSON.stringify( _.countBy(intermediary, 'orientaFonte'), undefined, 2),
             JSON.stringify( _.countBy(intermediary, 'dandelion'), undefined, 2)
         );
-        debug("1: %s", JSON.stringify(D1, undefined, 2));
-        debug("2: %s", JSON.stringify(D2, undefined, 2));
     })
     .then(function(rv) {
         debug("FBapi: saved %d posts (starting from %d), diff %d",
