@@ -162,7 +162,7 @@ function specialAttributions(post) {
 function FBapi(fbposts, profiles) {
 
     var ignoredSources = 0;
-    var stripFields = ['likes', 'shares', 'ANGRY', 'WOW', 'SAD', 'LOVE', 'HAHA'];
+    var stripFields = ['likes', 'shares', 'ANGRY', 'WOW', 'SAD', 'LOVE', 'HAHA', 'fname'];
     return Promise.map(fbposts.results, function(p) {
 
         var rgpx = new RegExp(p.sourceName, 'i')
@@ -204,10 +204,10 @@ function FBapi(fbposts, profiles) {
     }, { concurrency: 10} )
     .then(_.compact)
     .tap(function(intermediary) {
-        debug("invalidsource %d --- orientaFonte %s --- dandelion: %s",
+        debug("ignoredSources %d (%d%%) --- orientaFonte %s",
             ignoredSources,
-            JSON.stringify( _.countBy(intermediary, 'orientaFonte'), undefined, 2),
-            JSON.stringify( _.countBy(intermediary, 'dandelion'), undefined, 2)
+            _.round((100 / _.size(fbposts.results) ) * ignoredSources, 1),
+            JSON.stringify( _.countBy(intermediary, 'orientaFonte'), undefined, 2)
         );
     })
     .then(function(rv) {
