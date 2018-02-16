@@ -57,7 +57,7 @@ function xtimpression(impressions, profiles) {
                 return postInfo;
             })
             .then(function(postInfo) {
-                if(postInfo.entities_query) {
+                if(postInfo && postInfo.entities_query) {
                     mongo.forcedDBURL = composeDBURL('facebook');
                     return mongo
                         .read('entities', postInfo.entities_query)
@@ -98,7 +98,7 @@ function xtimpression(impressions, profiles) {
             });
     }, { concurrency: 10 })
     .tap(function(intermediary) {
-        debug("broken: %s dandelion: %s",
+        debug("broken [false means: find(entities, { post[0].externals }) not found]. true means: post not found %s dandelion (false = found but with error, true OK): %s",
             JSON.stringify( _.countBy(intermediary, 'broken'), undefined, 2),
             JSON.stringify( _.countBy(intermediary, 'dandelion'), undefined, 2)
         );
@@ -126,20 +126,24 @@ function xtimpression(impressions, profiles) {
                 } else 
                     extimp.linked = false;
 
-                return mongo
-                    .writeOne('merge', extimp)
-                    .return(extimp)
-                    .catch(function(error) {
-                        if(error.code !== 11000) /*  'E11000 duplicate key error collection */
-                            debug("Error in writeOne: %s", error.message);
-                        return null;
-                    });
+                return extimp;
             });
 
     }, {concurrency: 10})
     .tap(function(intermediary) {
-        debug("linked %s", JSON.stringify( _.countBy(intermediary, 'linked'), undefined, 2));
+        debug("linked %s, and now writing...", JSON.stringify( _.countBy(intermediary, 'linked'), undefined, 2));
     })
+    .map(function(extimp) {
+        mongo.forcedDBURL = composeDBURL('e18');
+        return mongo
+            .writeOne('merge', extimp)
+            .return(extimp)
+            .catch(function(error) {
+                if(error.code !== 11000) /*  'E11000 duplicate key error collection */
+                    debug("Error in writeOne: %s", error.message);
+                return null;
+            });
+    }, { concurrency: 10 })
     .then(_.compact)
     .then(function(rv) {
         debug("xtimpression: saved %d posts (starting from %d), diff %d",
