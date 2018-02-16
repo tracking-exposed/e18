@@ -13,13 +13,16 @@ var various = require('../../../lib/various');
 
 nconf.argv().env();
 
-var begin ="2018-01-05";
+var begin ="2018-01-10";
 var day = _.parseInt(nconf.get('day'));
 if(!day)
     console.log("You need to specify --day and implicitly say which day is processed after the 10th of January");
 
 /* declarations start below */
 
+function composeDBURL(dbname) {
+    return 'mongodb://' + nconf.get('mongodb') + '/' + dbname;
+};
 
 /* for every impression look at the associated post.
  *      if there is an external, look at entities.
@@ -29,11 +32,11 @@ if(!day)
 function xtimpression(impressions, profiles) {
 
     return Promise.map(impressions.results, function(impre) {
-        /* timezone fix */
+        /* timezone fix, Italian case only, e18 */
         impre.impressionTime = new Date(moment(impre.impressionTime).add(1, 'h').toISOString());
         impre.visualizationDiff += 3600;
 
-        mongo.forcedDBURL = 'mongodb://localhost/e18';
+        mongo.forcedDBURL = composeDBURL('e18');
         return mongo
             .read('fbtposts', { 'postId': impre.postId })
             .then(_.first)
@@ -55,7 +58,7 @@ function xtimpression(impressions, profiles) {
             })
             .then(function(postInfo) {
                 if(postInfo.entities_query) {
-                    mongo.forcedDBURL = 'mongodb://localhost/facebook';
+                    mongo.forcedDBURL = composeDBURL('facebook');
                     return mongo
                         .read('entities', postInfo.entities_query)
                         .then(_.first)
@@ -108,10 +111,13 @@ function xtimpression(impressions, profiles) {
                            'picture', 'type', 'author_id', 'created_seconds', 'sourceName',
                            'fb_post_id', 'orientaFonte', 'linked' ];
 
-        mongo.forcedDBURL = 'mongodb://localhost/e18';
+        mongo.forcedDBURL = composeDBURL('e18');
         return mongo
             .read('merge', { postId: extimp.postId }, { 'created_time': -1} )
             .then(function(previous) {
+
+                if(_.size(previous) > 4)
+                    debugger;
 
                 if(_.size(previous)) {
                     extimp.display =_.size(previous);
@@ -134,6 +140,7 @@ function xtimpression(impressions, profiles) {
     .tap(function(intermediary) {
         debug("linked %s", JSON.stringify( _.countBy(intermediary, 'linked'), undefined, 2));
     })
+    .then(_.compact)
     .then(function(rv) {
         debug("xtimpression: saved %d posts (starting from %d), diff %d",
             _.size(rv), impressions.elements, impressions.elements - _.size(rv)
@@ -191,7 +198,7 @@ function FBapi(fbposts, profiles) {
             ignoredSources +=1;
             return null;
         } else {
-            mongo.forcedDBURL = 'mongodb://localhost/e18';
+            mongo.forcedDBURL = composeDBURL('e18');
             return mongo
                 .writeOne('merge', p)
                 .return(p)
@@ -222,7 +229,7 @@ function FBapi(fbposts, profiles) {
 };
 
 function dbByDate(day, column, timevar) {
-    mongo.forcedDBURL = 'mongodb://localhost/e18';
+    mongo.forcedDBURL = composeDBURL('e18');
 
     var startw = moment(begin).add(day, 'd').toISOString();
     var endw = moment(begin).add(day + 1, 'd').toISOString();
@@ -294,7 +301,7 @@ return Promise.all([
     //  after: the stats
     return FBapi(mix[1], mix[2])
         .then(function(fbapistats) {
-            debug("now the FBapi posts have been saved, we'll address the impressions");
+            debug("2nd stage: Impressions (%d)", _.size(mix[0].results));
             return xtimpression(mix[0], mix[2]);
 /*
                 .then(function(fbtstats) {
