@@ -21,7 +21,10 @@ if(!day)
 /* declarations start below */
 
 function composeDBURL(dbname) {
-    return 'mongodb://' + nconf.get('mongodb') + '/' + dbname;
+
+    var host = nconf.get('mongodb');
+    if(!host) host= 'localhost';
+    return 'mongodb://' + host  + '/' + dbname;
 };
 
 /* for every impression look at the associated post.
