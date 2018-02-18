@@ -18,3 +18,7 @@ echo "copy of node_modules/reveal.js/lib/js/* to web-accessible/reveal-js/lib"
 mkdir -p web-accessible/lib/font
 cp -r node_modules/reveal.js/lib/font web-accessible/lib/font
 echo "copy of node_modules/reveal.js/lib/font/* to web-accessible/lib/font"
+
+mkdir -p web-accessible/reveal-js/plugin/highlight
+cp node_modules/reveal.js/plugin/highlight/highlight.js web-accessible/reveal-js/plugin/highlight
+echo "copy of node_modules/reveal.js/plugin/highlight/highlight.js to web-accessible/reveal-js/plugin/highlight"
