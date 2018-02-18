@@ -15,13 +15,39 @@ nconf.argv().env();
 
 var begin ="2018-01-10";
 var day = _.parseInt(nconf.get('day'));
+var FORCEWRITE = !_.isUndefined(nconf.get('FORCEWRITE'));
+var OVERWRITEUSED = 0;
+
 if(!day)
     console.log("You need to specify --day and implicitly say which day is processed after the 10th of January");
 
 /* declarations start below */
 
-function composeDBURL(dbname) {
+function overwrite(element) {
+    mongo.forcedDBURL = composeDBURL('e18');
+    var targetId = element.id;
 
+    return mongo
+        .remove('e18', { id: targetId })
+        .then(function() {
+            return mongo
+                .writeOne('e18', element)
+                .then(function() {
+                    OVERWRITEUSED++;
+                    return element;
+                })
+                .catch(function(error) {
+                    debug("Error in overwrite/writeOne: %s", error.message);
+                    return null;
+                });
+        })
+        .catch(function(error) {
+            debug("Error in overwrite/remove: %s", error.message);
+            return null;
+        });
+};
+
+function composeDBURL(dbname) {
     var host = nconf.get('mongodb');
     if(!host) host= 'localhost';
     return 'mongodb://' + host  + '/' + dbname;
@@ -99,7 +125,7 @@ function xtimpression(impressions, profiles) {
                 impre.broken = true;
                 return impre;
             });
-    }, { concurrency: 10 })
+    }, { concurrency: 1 })
     .tap(function(intermediary) {
         debug("broken [false means: find(entities, { post[0].externals }) not found]. true means: post not found %s dandelion (false = found but with error, true OK): %s",
             JSON.stringify( _.countBy(intermediary, 'broken'), undefined, 2),
@@ -132,7 +158,7 @@ function xtimpression(impressions, profiles) {
                 return extimp;
             });
 
-    }, {concurrency: 10})
+    }, {concurrency: 1})
     .tap(function(intermediary) {
         debug("linked %s, and now writing...", JSON.stringify( _.countBy(intermediary, 'linked'), undefined, 2));
     })
@@ -144,14 +170,18 @@ function xtimpression(impressions, profiles) {
             .catch(function(error) {
                 if(error.code !== 11000) /*  'E11000 duplicate key error collection */
                     debug("Error in writeOne: %s", error.message);
+                else
+                    if(FORCEWRITE)
+                        return overwrite(extimp);
                 return null;
             });
-    }, { concurrency: 10 })
+    }, { concurrency: 1 })
     .then(_.compact)
     .then(function(rv) {
         debug("xtimpression: saved %d posts (starting from %d), diff %d",
             _.size(rv), impressions.elements, impressions.elements - _.size(rv)
         );
+        if(FORCEWRITE) debug("FORECEWRITE enabled: cumulative usage: %d times", OVERWRITEUSED);
         return {
             processed: rv,
             start: impressions.start
@@ -212,10 +242,13 @@ function FBapi(fbposts, profiles) {
                 .catch(function(error) {
                     if(error.code !== 11000) /*  'E11000 duplicate key error collection */
                         debug("Error in writeOne: %s", error.message);
+                    else
+                        if(FORCEWRITE)
+                            return overwrite(p);
                     return null;
                 });
         }
-    }, { concurrency: 10} )
+    }, { concurrency: 1 } )
     .then(_.compact)
     .tap(function(intermediary) {
         debug("ignoredSources %d (%d%%) --- orientaFonte %s",
@@ -223,6 +256,7 @@ function FBapi(fbposts, profiles) {
             _.round((100 / _.size(fbposts.results) ) * ignoredSources, 1),
             JSON.stringify( _.countBy(intermediary, 'orientaFonte'), undefined, 2)
         );
+        if(FORCEWRITE) debug("Force write enabled: cumulative usage: %d times", OVERWRITEUSED);
     })
     .then(function(rv) {
         debug("FBapi: saved %d posts (starting from %d), diff %d",
@@ -281,8 +315,8 @@ function saveStatistics(api, impre) {
 
 /* execution start below */
 
-debug("This script analyzes only one day per time (%s), and update the databases: `merge` `mergestats`",
-    moment(begin).add(day, 'd').format("ddd DD MMM") );
+debug("This script analyzes the day %s, and update the databases: `merge`. FORCEWRITE: %s",
+    moment(begin).add(day, 'd').format("ddd DD MMM"), FORCEWRITE );
 
 return Promise.all([
     dbByDate(day, 'fbtimpre', 'impressionTime'),
@@ -299,7 +333,7 @@ return Promise.all([
     debug("Facebook API posts are %d (the day %s -> %s), %s ago",
             mix[1].elements, mix[1].start.format("DD/MMM hh:mm"), mix[1].end.format("DD/MMM hh:mm"), mix[1].diff.humanize()
     );
-    debug("Profiles are %d", _.size(mix[2]));
+    debug("Loaded %d profiles (%s)", _.size(mix[2]), _.map(mix[2], 'bot'));
 
     // Here the sequence is importan: 
     //  before it is saved fbposts of the timewindow
