@@ -1,0 +1,20 @@
+
+include ../stdheader
+include ../navbar
+
+br
+br
+br
+div.container-fluid
+
+    div.sezione.goal--cosa
+        span.contatore.hidden#numeroCompagnie
+        span.contatore.hidden#numeroArticoli
+        span.contatore.hidden#campione
+
+        #traccianti
+
+    script.
+        loadTrackers('#traccianti', '#numeroCompagnie', '#numeroArticoli', "#{data}")
+
+include ../footer

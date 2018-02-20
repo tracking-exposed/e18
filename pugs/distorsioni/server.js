@@ -10,7 +10,10 @@ var various = require('../../../../lib/various');
 function distorsioni(req) {
 
     var daysago = nconf.get('daysago') ? _.parseInt(nconf.get('daysago')) : 0;
-    var fullp = __dirname + '/' + 'distorsioni.pug';
+    var pugName = 'distorsioni';
+    pugName += _.endsWith(_.get(req.params, 'page'), '-tabella') ? '-tabella.pug' : '.pug';
+    var fullp = __dirname + '/' + pugName;
+
     mongo.forcedDBURL = 'mongodb://localhost/e18';
 
     /* anzichè accedere a posts si dovrebbe prendere un merge di:

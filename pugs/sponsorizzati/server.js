@@ -11,7 +11,10 @@ var various = require('../../../../lib/various');
 function sponsorizzati(req) {
 
     var daysago = nconf.get('daysago') ? _.parseInt(nconf.get('daysago')) : 0;
-    var fullp = __dirname + '/' + 'distorsioni.pug';
+    var pugName = 'sponsorizzati';
+    pugName += _.endsWith(_.get(req.params, 'page'), '-tabella') ? '-tabella.pug' : '.pug';
+    var fullp = __dirname + '/' + pugName;
+
     mongo.forcedDBURL = 'mongodb://localhost/e18';
 
     var min = moment().subtract(daysago +3, 'd').format("YYYY-MM-DD HH:mm:00");
@@ -19,8 +22,6 @@ function sponsorizzati(req) {
     var filter = {
         savingTime: { '$gt': new Date(min), '$lt': new Date(max) }
     };
-
-    var fullp = __dirname + '/' + 'sponsorizzati.pug';
 
     return mongo
         .readLimit('sponsored', filter, {}, 300, 0)

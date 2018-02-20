@@ -15,7 +15,9 @@ function sorveglianza(req) {
     var daysago = nconf.get('daysago') ? _.parseInt(nconf.get('daysago')) : 0;
 
     mongo.forcedDBURL = 'mongodb://localhost/ivl';
-    var fullp = __dirname + '/' + 'sorveglianza.pug';
+    var pugName = 'sorveglianza';
+    pugName += _.endsWith(_.get(req.params, 'page'), '-tabella') ? '-tabella.pug' : '.pug';
+    var fullp = __dirname + '/' + pugName;
 
     return mongo
         .readLimit('judgment', {}, { when: -1}, 1, 0)
