@@ -200,6 +200,7 @@ function specialAttributions(post) {
     // special cases: pages with the name different from the URL 
     if(post.sourceName === "411675765615435") return listeO.fasci; // "Fascisti uniti per L'italia";
     if(post.sourceName === "325228170920721") return listeO.sx; // "Laura Boldrini";
+    if(post.sourceName === "257153365332") return listO.fasci; // Lotta-Studentesca-257153365332
     return "INVALIDSOURCE";
 };
 
