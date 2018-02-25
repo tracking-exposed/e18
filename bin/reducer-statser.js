@@ -70,6 +70,7 @@ function overwrite(element) {
 
 var FORCEWRITE = !_.isUndefined(nconf.get('FORCEWRITE'));
 var OVERWRITEUSED = 0;
+var pages = [];
 
 var begin = nconf.get('begin');
 var days = _.parseInt(nconf.get('days'));
@@ -91,6 +92,7 @@ var filter = {
     display: { "$ne": 0 }
 };
 
+PROT = 0;
 function countByBot(impression, i) {
     var keptfields = [ 'pageName', 'profile', 'postId', 'impressionTime', 'publicationTime',
                        'visualizationDiff', 'type', 'impressionOrder', 'id', 'permaLink',
@@ -102,6 +104,28 @@ function countByBot(impression, i) {
 
             var entry = _.pick(impression, keptfields);
             entry.observed = (count + 1);
+
+            var ref = _.find(pages, { pageURL: impression.pageName });
+            if(!ref) {
+                if(impression.from) {
+                    debug("boom fz");
+                    entry.publisherName = impression.from.name;
+
+                    if(impression.orientaFonte) {
+                        entry.orientaFonte = impression.orientaFonte;
+                        if(!PROT)
+                            debug("prot %s %d", JSON.stringify(impression, undefined, 2), PROT++);
+                    }
+                    else
+                        debugger;
+                } else  {
+                    // linked false and page not linked, such as CASE-1 below
+                    debugger;
+                }
+            } else {
+                entry.publisherName = ref.displayName;
+                entry.orientaFonte = ref.orientamento;
+            }
 
             return mongo
                 .writeOne(cName, entry)
@@ -117,13 +141,64 @@ function countByBot(impression, i) {
         });
 };
 
-mongo.forcedDBURL = composeDBURL('e18');
-return mongo
-    .read('merge', filter)
-    .tap(stageDebug)
-    .map(countByBot, { concurrency: 1})
-    .then(_.compact)
-    .tap(stageDebug)
-    .tap(function() {
-        debug("overwrite being used %d times", OVERWRITEUSED);
+return various
+    .loadJSONfile('./fonti/pagine-exp1.json')
+    .then(function(p) {
+        pages = p;
+
+        mongo.forcedDBURL = composeDBURL('e18');
+        return mongo
+            .read('merge', filter)
+            .tap(stageDebug)
+            .map(countByBot, { concurrency: 10})
+            .then(_.compact)
+            .tap(stageDebug)
+            .tap(function() {
+                debug("overwrite being used %d times", OVERWRITEUSED);
+            });
     });
+
+/*
+ * CASE-1
+ *
+{ _id: 
+   { _bsontype: 'ObjectID',
+     id: 
+      { '0': 90,
+        '1': 144,
+        '2': 151,
+        '3': 231,
+        '4': 102,
+        '5': 178,
+        '6': 116,
+        '7': 106,
+        '8': 120,
+        '9': 232,
+        '10': 93,
+        '11': 171 } },
+  pageName: '325228170920721',
+  profile: 'Antonietta',
+  postId: '1495089873934539',
+  impressionTime: 2018-02-22T20:07:09.000Z,
+  publicationTime: 2018-02-22T11:37:19.000Z,
+  visualizationDiff: 30590,
+  type: 'photo',
+  love: 70,
+  like: 718,
+  sad: 0,
+  haha: 0,
+  wow: 4,
+  angry: 0,
+  thankful: 0,
+  impressionOrder: 32,
+  id: '22bcdd6340eb8133555e8c0c78a7dd2b2ae6872f',
+  permaLink: '/325228170920721/photos/a.474064812703722.1073741827.325228170920721/14950898739... (length: 93)',
+  rtotal: '792',
+  comments: '81',
+  shares: '79',
+  timelineId: '4e89f5abcd2e13de5e7d553cfe6be16e99891b68',
+  orientaBot: 'Sinistra',
+  linked: false }
+
+ *
+ */
