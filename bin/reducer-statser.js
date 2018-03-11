@@ -92,7 +92,6 @@ var filter = {
     display: { "$ne": 0 }
 };
 
-PROT = 0;
 function countByBot(impression, i) {
     var keptfields = [ 'pageName', 'profile', 'postId', 'impressionTime', 'publicationTime',
                        'visualizationDiff', 'type', 'impressionOrder', 'id', 'permaLink',
@@ -125,7 +124,7 @@ function countByBot(impression, i) {
                 } else  {
                     // linked false and page not linked, such as CASE-1 below, that's why _.find as _.endsWith
                     entry.publisherName = ref.displayName;
-                    entry.orientaFonte = ref.orientament;
+                    entry.orientaFonte = ref.orientamento;
                 }
             } else {
                 debug("condition (2) match, check https://www.facebook.com%s", impression.permaLink);
@@ -147,6 +146,10 @@ function countByBot(impression, i) {
         });
 };
 
+if(FORCEWRITE)
+    debug("Overwrite ON");
+else
+    debug("FORCEWRITE disable");
 
 return various
     .loadJSONfile('./fonti/pagine-exp1.json')
