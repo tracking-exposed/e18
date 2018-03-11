@@ -63,8 +63,13 @@ function importPostsFile(fp) {
 }
 
 var source = nconf.get('source');
-debug("Welcome: it begin reading from `source` directroy: [%s]", source);
+if(!source) {
+    console.log("`source` option mandatory, is a directory like 'collected/2018-02-10'");
+    process.exit(1);
+}
+debug("Welcome: it begin reading ALL the files matching %s/**/*.json", source);
 
+// TODO associare da qui il valore 'orientaSource' 
 return glob(source + '/**/*.json', function(error, jsonfl) {
 
     return Promise.map(jsonfl, function(jsonf) {
@@ -83,5 +88,4 @@ return glob(source + '/**/*.json', function(error, jsonfl) {
 	    })
     }, {concurrency: 1})
     .then(_.compact);
-
 });
