@@ -13,47 +13,14 @@ div.container-fluid
             |, che permette di aggregare timeline dei nostri bot, e da 
             a("https://invi.sible.link/stats") il sistema di analisi traccianti
             |. Volontariamente, si può partecipare allo studio del fenomeno elettorale sui social media installando la browser extension per 
-            a(href="") Firefox
+            a(href="https://addons.mozilla.org/en-US/firefox/addon/facebook-tracking-exposed/") Firefox
             |  o per 
-            a(href="") Chrome
+            a(href="") Chrome [no, è in takedown]
             |. Se oltre ai dati, ti interessa il codice, guarda i nostri
             a(href="https://github.com/tracking-exposed") repository su github
             |.
 
-        h2 Post
-        p(class="goal--cosa documentazione") Il post è il contenuto creato da chi pubblica su Facebook. Noi chiamiamo post qualunque elemento (link, foto, album, testo, video). Il tipo di contenuto è una variabile all'interno del post, il post è identificato da un postId che è unico per ogni post. Navigando su https://facebook.com/$mettereilnumerodelPostId si verrà reindirizzati al post originale.
-        #fbtposts
-        h3.download Scarica gli archivi settimanali
-        #fbtpostsdownloads
-
-        h2 Impression
-        p(class="goal--cosa documentazione") Un'impression è un post che appare sulla timeline di Facebook. Esistono le impression sponsorizzate e quelle delle fonti seguite (amici, pagine, gruppi). Ogni impression può apparire ad un utente più di una volta, e durante la sua vita ha un numero di like/share/commenti che cambia. Ogni impression è associata ad un post. Quelle che scaricherai riguarda solo i post non sponsorizzati. 
-        #fbtimpre
-        h3.download Scarica gli archivi settimanali
-        #fbtimpredownloads
-
-        h2 Analisi semantica
-        #entities
-        p(class="goal--cosa documentazione") Estraendo dal formato delle API di dandelion.eu, 
-        h3.download Scarica gli archivi settimanali
-        #entitiesdownloads
-
-        h2 Analisi dei traccianti
-        #judgment
-        p(class="goal--cosa documentazione") Analisi delle terze parti traccianti. Le compagnie che sono presenti quando navighiamo su pagine che palrano di politica (sono presenti su qualuqnue altra, ma cambiano dinamicamente. Chissà quali di questi trackers vende dati a Cambrige-Analytica ?)
-        h3.download Scarica gli archivi settimanali
-        #judgmentdownloads
-
-        h2 Effettivo dibattito spinto
-        #dibattito
-        p(class="goal--cosa documentazione") I media producono un mucchio di notizie, non tutte ci vengono mostrate. Ci sarebbe quindi da comparare questi archivi, con quello effettivamente ricevuto dagli utenti. Questi dati sono raccolti tramite le facebook API.
-        h3.download Scarica gli archivi settimanali
-        #dibattitodownloads
-
-        h2 Pubblicità mirata - post Sponsorizzati
-        #sponsored
-        p(class="goal--cosa documentazione") I post sponsorizzati ed anonimizzati raccolti tramite facebook.tracking.exposed; vanno separarte le promozioni politiche da quelle non politiche.
-        #sponsoreddownloads
-
-    script.
-        loadDocumentation("#{files}", "#{fbtimpre}", "#{fbtposts}", "#{dibattito}", "#{judgment}", "#{entities}", "#{sponsored}");
+        h2 I dataset sono 2, scarica quello 
+            a(href="http://elezioni.tracking.exposed/campaign/opendata/") prodotto dai 6 bot
+            |.
+        h2 L'altro dataset, non è ancora disponibile. 
