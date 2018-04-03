@@ -1,0 +1,69 @@
+<h1> Dataset </h1>
+
+<p>
+	<a href="./opendata-e18.array.json.gz">opendata-e18.array.json.gz</a>: This file is a valid JSON and contains all the bot activites. Attribution on bots and source are 100% reliable 
+</p>
+<article class="markdown-body entry-content" itemprop="text"><p>The collection contains 193808 object with these fields:</p>
+<pre><code>"_id" : ObjectId("5ab919032076215038537c36"),
+"impressionOrder" : 42,
+"impressionTime" : ISODate("2018-01-10T19:07:34.000Z"),
+"profileName" : "Michele",
+"profileAlign" : "far-right",
+"publicationTime" : ISODate("2018-01-10T17:55:00.000Z"),
+"visualizationDiff" : 4354,
+"postId" : "10156069251662459",
+"utype" : "post",
+"displayName" : "Il Giornale",
+"externals" : 1,
+"timelineId" : "38bf77cb13909f633fb2de38d7ec9ca0ead2a91b",
+"permaLink" : "/ilGiornale/posts/10156069251662459",
+"rtotal" : "6",
+"comments" : "0",
+"shares" : "0",
+"id" : "27acd5e4caaa123301115e9e10e4547e15acc578",
+"by" : "fbtrex",
+"publisherName" : "Il Giornale",
+"publisherOrientation" : "right",
+"observed" : 1
+</code></pre>
+<h2><a id="user-content-fields-description" class="anchor" aria-hidden="true" href="#fields-description"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Fields description</h2>
+<p>Every object represent a Facebook post appear in the profile timeline. The profiles are six, the pages they were following 30.
+All the objects are a combo of these two lists. These object take name of <strong>impression</strong> because the post is a unique publication
+from a <code>publisherName</code>, with a unique <code>postId</code>. The same <code>postId</code> can appear more to more <code>profileName</code> and even to the same <code>profileName</code> in different <code>timelineId</code>, imply a different <code>impressionTime</code> and probably a different <code>impressionOrder</code>.</p>
+<ul>
+<li>"_id" : ObjectId("5ab919032076215038537c36")  <code>native MongoDB ID, you can ignore it.</code></li>
+<li>"profileName" : "Michele"  <code>name of the profile, they are six, every name has the same profileAlign</code></li>
+<li>"impressionOrder" : 42  <code>position in the timeline of the post</code></li>
+<li>"impressionTime" : ISODate("2018-01-10T19:07:34.000Z")  <code>time of visualization</code></li>
+<li>"profileAlign" : "far-right"  <code>political orientation we forced upon the profile, by liking selected content</code></li>
+<li>"publicationTime" : ISODate("2018-01-10T17:55:00.000Z")  <code>time of publication, this is linked to postId</code></li>
+<li>"visualizationDiff" : 4354  <code>seconds of different between publicationTime and impressionTime</code></li>
+<li>"postId" : "10156069251662459"  <code>unique post Identified took from Facebook, every post has a different one</code></li>
+<li>"utype" : "post"  <code>kind of content: post, photos, video</code></li>
+<li>"displayName" : "Il Giornale"  <code>the name display on the timeline, it can be also "Il Giornal shared 6 photos", for a more stable page Id, use publisherName</code></li>
+<li>"externals" : 1  <code>number of external links</code></li>
+<li>"timelineId" : "38bf77cb13909f633fb2de38d7ec9ca0ead2a91b"  <code>identifier unique among all the impressions of the same timeline</code></li>
+<li>"permaLink" : "/ilGiornale/posts/10156069251662459"  <code>facebook permaLink, in case you want to compose the facebook URL of the post</code></li>
+<li>"rtotal" : "6"  <code>total reactions at impressionTime. rtotal is the number of likes+sad+angry+wow+love buttons</code></li>
+<li>"comments" : "0"  <code>number of comment at impressionTime</code></li>
+<li>"shares" : "0"  <code>number of shares at impressionTime</code></li>
+<li>"id" : "27acd5e4caaa123301115e9e10e4547e15acc578"  <code>unique id, it is different from every impression, and you can retrieve the original HTML collected by us</code> by <a href="https://facebook.tracking.exposed/revision/27acd5e4caaa123301115e9e10e4547e15acc578" rel="nofollow">changing the ID in this URL</a></li>
+<li>"by" : "fbtrex"  <code>this is fixed in this collection</code></li>
+<li>"publisherName" : "Il Giornale"  <code>name of the page publishing the postId</code></li>
+<li>"publisherOrientation" : "right"  <code>political affiliation we attributed to this publisherName</code></li>
+<li>"observed" : 1  <code>number of time the postId appear on this profileName</code></li>
+</ul>
+</article>
+
+<h2>Differences and improvements from the previous releases</h2>
+<ol>
+	<li>impressionTime and publicationTime are aligned with Italian time, visualizationDiff should never be negative</li>
+	<li>publisherName is one of the 30 pages names</li>
+	<li>displayName is the scraped name. It can be, for example 'Wonderful Page shared three pictures', while the publisherName is 'Wonderful Page'</li>
+	<li>observed is an integer saying how many time the same postId has been seen by the profile</li>
+	<li>Not all the days the bot worked properly. The best sequences are: 8,9,10,11,12,13,14 and 19,20,21,22,23,24,25,26 of February, and 3,4,5,6,7,8,9,10,11 of March.</li>
+	<li>utype is the kind of content: posts, video or photos are the only one attributed by scraping.</li>
+	<li>political alignment/orientation are translated in English. We wrote something about the <a href="https://medium.com/@trackingexposed/testing-facebook-algorithm-in-an-electoral-campaign-methodology-e7f886776890">Methodology</a> in a blogpost.
+	<li>please note, in February one of the far-right page got shutdown by Facebook, and <a href="https://github.com/tracking-exposed/e18/commit/b5493ed7e1158b6a6bdd574cebe9ab98a4575e47#diff-b698e7e7d2d00ef71fbe86f5b1f87701">has been replaced with another one</a>.
+</ol>
+
