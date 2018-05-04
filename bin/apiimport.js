@@ -10,12 +10,18 @@ var various = require('../../../lib/various');
 var mongo = require('../../../lib/mongo');
 var nconf = require('nconf');
 
-/*  
- *  { "unique" : true }
- *  { "fb_post_id" : 1 }
- */
+/*  *  { "unique" : true }, { "fb_post_id" : 1 } */
 
 nconf.argv().env();
+
+var TRANSLATE = {
+    'Destra': 'right',
+    'Fascistoidi': 'far-right',
+    'Sinistra': 'left',
+    'Centro Sinistra': 'center-left',
+    'non orientato': 'undecided',
+    'M5S': 'M5S'
+};
 
 function importPostsFile(fp) {
     var savingO = _.reduce(fp.content, function(memo, e) {
@@ -29,8 +35,15 @@ function importPostsFile(fp) {
         e.author_id = combo[0];
         e.postId = combo[1];
         e.created_seconds = moment(e.created_time).valueOf();
-        e.sourceName = _.split(fp.fname, '/').pop().replace(/\.json$/, '');
-        e.fname = fp.fname;
+
+        var sourceName = _.split(fp.fname, '/').pop().replace(/\.json$/, '');
+        var ref = _.find(fp.pages, function(p) { return _.endsWith(p.pageURL, sourceName); });
+
+        if(!ref || !TRANSLATE[ref.orientamento])
+            return memo;
+
+        e.publisherOrientation = TRANSLATE[ref.orientamento];
+        e.publisherName = ref.displayName;
         e.fb_post_id = e.id;
         _.unset(e, 'id');
 
@@ -39,14 +52,14 @@ function importPostsFile(fp) {
     }, []);
 
     if(!_.size(savingO)) {
-        debug("file %s gave as usable only 0 elements!", fp.fname);
+        debug("file %s gave as 0 meaningful elements!", fp.fname);
         return null;
     }
 
     mongo.forcedDBURL = 'mongodb://localhost/e18';
     return Promise.map(savingO, function(o) {
         return mongo
-            .writeOne('dibattito', o)
+            .writeOne('rawposts', o)
             .then(function(r) {
                 return { fname: fp.fname, result: true };
             })
@@ -73,6 +86,7 @@ debug("Welcome: it begin reading ALL the files matching %s/**/*.json", source);
 return glob(source + '/**/*.json', function(error, jsonfl) {
 
     return Promise.map(jsonfl, function(jsonf) {
+
         return various
             .loadJSONfile(jsonf)
             .then(function(content) {
@@ -81,11 +95,23 @@ return glob(source + '/**/*.json', function(error, jsonfl) {
                     content: content
                 };
             })
-            .then(importPostsFile)
-	    .catch(function(error) {
-		debug("Error (.loadJSONfile) %s %s", jsonf, error.message);
-		return null;
-	    })
+            .tap(function(info) {
+
+                return various
+                    .loadJSONfile("./fonti/pagine-exp1.json")
+                    .then(function(pages) {
+
+                        info.pages = pages;
+                        return importPostsFile(info);
+                    });
+            })
+            .catch(function(error) {
+                debug("Error (.loadJSONfile) %s %s", jsonf, error.message);
+                return null;
+            });
+
     }, {concurrency: 1})
-    .then(_.compact);
+    .tap(function(x) { debug("¹ %d", _.size(x)); })
+    .then(_.compact)
+    .tap(function(x) { debug("² %d", _.size(x)); });
 });
